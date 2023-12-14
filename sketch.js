@@ -1,29 +1,29 @@
 let qteklogo;
 let xpos = 460;
-const message = 'Wire Chart';
+const message = 'Wire Charts';
 const messageX = xpos;
-const messageY = 330;
+const messageY = 370;
 const message2 = 'Electrical Drawing';
 const message2X = xpos;
-const message2Y = 370;
+const message2Y = 410;
 const message3 = 'Pictures';
 const message3X = xpos;
-const message3Y = 410;
+const message3Y = 450;
 const message4 = 'Terminal Layout';
 const message4X = xpos;
-const message4Y = 450;
+const message4Y = 490;
 const message5 = 'Cable Layout Chart';
 const message5X = xpos;
-const message5Y = 490;
+const message5Y = 530;
 const message6 = 'Backplate Layout';
 const message6X = xpos;
-const message6Y = 530;
+const message6Y = 570;
 
 const NUM_IMGS = 5,
     imgs = [];
 let currentImg = 0;
-let counter = 0;
-
+let backbackcounter = 0;
+let counter;
 
 let menu = true;
 let pictures = false;
@@ -50,6 +50,8 @@ function setup() {
     //setupButtons();
     console.log("pictures" + " " + pictures);
     console.log("menu " + " " + menu);
+    counter = new Count(0,100)
+  counter.start();
 
 }
 
@@ -68,10 +70,36 @@ function draw() {
 
 
     if (menu) {
+
+
+        let location = 285;
+        let xlocation = 460;
+
+        let sVal = counter.s;
+        let Progress = map(sVal,0,100,0,100);
+        
+        fill(198, 0, 0);
+        textSize(14);
+        //textFont('monospace')
+        let txt = text('Progress: '+ sVal + '%',xlocation,location-5);
+        
+        rect(xlocation,location,Progress,9)
+        stroke('black')
+        noFill();
+        rect(xlocation,location,100,9)
+        
+        if (floor == 100) {
+          counter.reset();
+        }
+       
+
+
+
+
         setupButtons();
         push();
         imageMode(CENTER);
-        image(qteklogo, 550, 130, qteklogo.width, qteklogo.height);
+        image(qteklogo, 525, 200, qteklogo.width/2, qteklogo.height/2);
         pop();
         // image(imgs[currentImg], 0, 0);
         textFont(font);
@@ -143,9 +171,9 @@ function draw() {
         fill('grey');
         textSize(14);
         // text('ACP Digital Solutions', xpos, height - 30);
-        textSize(32);
+        textSize(54);
         fill(198, 0, 0);
-        text('ACP Digital Solutions', xpos, 230);
+        text('ACP Digital Solutions', xpos, 150);
         textSize(20);
         fill('black');
         text('SUPERBOMBER #23352', xpos, 257);
@@ -177,14 +205,14 @@ function draw() {
         
         text(btm, 814, 150);
          
-        if(counter < 1){
+        if(backbackcounter < 1){
         setupButtons();
         }
         previous.position(1090 + 80, 90);
 next.position(1150 + 80, 90);
 
-        counter++;
-        console.log(counter);
+        backbackcounter++;
+        console.log(backbackcounter);
         //  setupButtons();
     }
 
@@ -277,4 +305,27 @@ function isMouseInsideText(message, messageX, messageY) {
     return mouseX > messageX && mouseX < messageX + messageWidth &&
         mouseY > messageTop && mouseY < messageBottom;
 }
+
+
+class Count{
+    constructor(s,w){
+      this.s = s
+      this.w = w
+      this.p = createP('')
+    }
+    start(){
+      if (!this.done) {
+        setInterval(() => this.counter(),this.w)
+      }
+    }
+    counter(){
+      if(this.s < 92){
+        this.s = this.s +4
+        //this.p.html(this.s)
+      }
+    }
+    reset(){
+      this.s = 0
+    }
+  }
 
