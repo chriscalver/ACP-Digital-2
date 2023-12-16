@@ -22,6 +22,14 @@ const message7 = 'Inventory';
 const message7X = xpos;
 const message7Y = 610;
 
+const messageBP = 'Backplate';
+const messageBPX = 14;
+const messageBPY = 150;
+
+const messageDoor = 'Door';
+const messageDoorX = 14;
+const messageDoorY = 183;
+
 const NUM_IMGS = 5,
     imgs = [];
 let currentImg = 0;
@@ -207,6 +215,8 @@ function draw() {
         }
         text(message7, message7X, message7Y);
 
+        
+
 
         // if (isMouseInsideText(btm, btmX, btmY)) {
 
@@ -214,9 +224,9 @@ function draw() {
         //     // next.position(-1020, 100);
         //     menu = true;
         //     //setupButtons();
-    
+
         //     pictures = false;
-    
+
         //     //window.open('http://www.chriscalver.com/', '_blank');
         //     // window.open('/pics/QTEK.gif', '_blank');
         //     //window.open('data/Wirechart.pdf', '_blank');
@@ -254,16 +264,24 @@ function draw() {
         text('Wirecharts', 14, 120);
 
 
+        textFont(font);
+        fill('grey');
+        textSize(20);
+        text('Backplate', messageBPX, messageBPY);
+        text('Door', 14, 185);
+
+
+
 
         fill('blue');
         // line(360, 235, 625, 235);
         // textAlign(CENTER);
         textSize(16);
         btmX = 14;
-        btmY = 150
+        btmY = 250
         text(btm, btmX, btmY);
 
-        
+
 
     }
 
@@ -288,7 +306,7 @@ function draw() {
         // line(360, 235, 625, 235);
         // textAlign(CENTER);
         textSize(16);
-        
+
 
         btmX = 814;
         btmY = 150
@@ -332,7 +350,7 @@ function draw() {
         btmY = 150
         text(btm, btmX, btmY);
 
-        
+
 
     }
 
@@ -394,7 +412,7 @@ function draw() {
 
 
 
-    if(inventory){
+    if (inventory) {
         push();
         imageMode(CENTER);
         image(qteklogo, 80, 50, qteklogo.width / 2, qteklogo.height / 2);
@@ -458,7 +476,7 @@ function mouseClicked() {
         //  menu = false;
         //window.open('http://www.chriscalver.com/', '_blank');
         // window.open('/pics/QTEK.gif', '_blank');
-       // window.open('data/Wirechart.pdf', '_blank');
+        // window.open('data/Wirechart.pdf', '_blank');
         wirecharts = true;
         menu = false;
 
@@ -499,7 +517,7 @@ function mouseClicked() {
 
 
 
-if (isMouseInsideText(message5, message5X, message5Y)) {
+    if (isMouseInsideText(message5, message5X, message5Y)) {
 
         cableLayout = true;
 
@@ -541,6 +559,37 @@ if (isMouseInsideText(message5, message5X, message5Y)) {
     }
 
 
+
+
+    if (isMouseInsideText(messageBP, messageBPX, messageBPY)) {
+        cursor(HAND);
+        fill(0, 200, 255);
+        //stroke(0, 200, 255);
+    } else {
+        cursor(ARROW);
+        fill('grey');
+        //  stroke(255);
+    }
+    text(messageBP, messageBPX, messageBPY);
+
+    if (isMouseInsideText(messageDoor, messageDoorX, messageDoorY)) {
+        cursor(HAND);
+        fill(0, 200, 255);
+        //stroke(0, 200, 255);
+    } else {
+        cursor(ARROW);
+        fill('grey');
+        //  stroke(255);
+    }
+    text(messageDoor, messageDoorX, messageDoorY);
+
+
+
+
+
+
+
+
     if (isMouseInsideText(btm, btmX, btmY)) {
 
         previous.position(-940, 100);
@@ -558,7 +607,37 @@ if (isMouseInsideText(message5, message5X, message5Y)) {
         // window.open('/pics/QTEK.gif', '_blank');
         //window.open('data/Wirechart.pdf', '_blank');
     }
+
+    if (isMouseInsideText(messageBP, messageBPX, messageBPY)) {
+        //  menu = false;
+        //window.open('http://www.chriscalver.com/', '_blank');
+        // window.open('/pics/QTEK.gif', '_blank');
+        window.open('data/Wirechart.pdf', '_blank');
+    }
+
+    if (isMouseInsideText(messageDoor, messageDoorX, messageDoorY)) {
+        //  menu = false;
+        //window.open('http://www.chriscalver.com/', '_blank');
+        // window.open('/pics/QTEK.gif', '_blank');
+        window.open('data/Wirechart.pdf', '_blank');
+    }
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
 
 function isMouseInsideText(message, messageX, messageY) {
     const messageWidth = textWidth(message);
