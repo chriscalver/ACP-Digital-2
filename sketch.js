@@ -29,6 +29,7 @@ let backbackcounter = 0;
 let counter;
 
 let menu = true;
+let wirecharts = false;
 let pictures = false;
 let TBlayout = false;
 let cableLayout = false;
@@ -207,19 +208,19 @@ function draw() {
         text(message7, message7X, message7Y);
 
 
-        if (isMouseInsideText(btm, btmX, btmY)) {
+        // if (isMouseInsideText(btm, btmX, btmY)) {
 
-            // previous.position(-940, 100);
-            // next.position(-1020, 100);
-            menu = true;
-            //setupButtons();
+        //     // previous.position(-940, 100);
+        //     // next.position(-1020, 100);
+        //     menu = true;
+        //     //setupButtons();
     
-            pictures = false;
+        //     pictures = false;
     
-            //window.open('http://www.chriscalver.com/', '_blank');
-            // window.open('/pics/QTEK.gif', '_blank');
-            //window.open('data/Wirechart.pdf', '_blank');
-        }
+        //     //window.open('http://www.chriscalver.com/', '_blank');
+        //     // window.open('/pics/QTEK.gif', '_blank');
+        //     //window.open('data/Wirechart.pdf', '_blank');
+        // }
 
 
 
@@ -240,6 +241,31 @@ function draw() {
     }
 
 
+    if (wirecharts) {
+
+        push();
+        imageMode(CENTER);
+        image(qteklogo, 80, 50, qteklogo.width / 2, qteklogo.height / 2);
+        //image(qteklogo, imgs[currentImg].width / 4 + 100, 50, qteklogo.width / 2, qteklogo.height / 2);
+        pop();
+
+        textSize(30);
+        fill(198, 0, 0);
+        text('Wirecharts', 14, 120);
+
+
+
+        fill('blue');
+        // line(360, 235, 625, 235);
+        // textAlign(CENTER);
+        textSize(16);
+        btmX = 14;
+        btmY = 150
+        text(btm, btmX, btmY);
+
+        
+
+    }
 
 
 
@@ -432,7 +458,10 @@ function mouseClicked() {
         //  menu = false;
         //window.open('http://www.chriscalver.com/', '_blank');
         // window.open('/pics/QTEK.gif', '_blank');
-        window.open('data/Wirechart.pdf', '_blank');
+       // window.open('data/Wirechart.pdf', '_blank');
+        wirecharts = true;
+        menu = false;
+
     }
 
     if (isMouseInsideText(message2, message2X, message2Y)) {
@@ -518,7 +547,7 @@ if (isMouseInsideText(message5, message5X, message5Y)) {
         next.position(-1020, 100);
         menu = true;
         //setupButtons();
-
+        wirecharts = false;
         pictures = false;
         TBlayout = false;
         cableLayout = false;
