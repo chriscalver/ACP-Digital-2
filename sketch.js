@@ -36,6 +36,9 @@ let BPlayout = false;
 let inventory = false;
 
 let btm = "Back to Main";
+
+let btmX = 814;
+let btmY = 150;
 function preload() {
     qteklogo = loadImage('pics/QTEK.gif');
     font = loadFont('oswald.ttf');
@@ -43,7 +46,7 @@ function preload() {
     // for (let i = 0; i < NUM_IMGS; i++) {
     //     imgs[i] = loadImage(`http://picsum.photos/640/360/?random?sig=${i}`);
     //   }
-    let images = 7;
+    let images = 2;
     for (let i = 0; i < images; i++) {
         path = 'pics/' + str(i) + '.jpg' // create a path to the image
         loaded_image = loadImage(path)     // load the image from the path
@@ -204,7 +207,7 @@ function draw() {
         text(message7, message7X, message7Y);
 
 
-        if (isMouseInsideText(btm, 814, 150)) {
+        if (isMouseInsideText(btm, btmX, btmY)) {
 
             // previous.position(-940, 100);
             // next.position(-1020, 100);
@@ -259,8 +262,11 @@ function draw() {
         // line(360, 235, 625, 235);
         // textAlign(CENTER);
         textSize(16);
+        
 
-        text(btm, 814, 150);
+        btmX = 814;
+        btmY = 150
+        text(btm, btmX, btmY);
 
         if (backbackcounter < 1) {
             setupButtons();
@@ -296,8 +302,9 @@ function draw() {
         // line(360, 235, 625, 235);
         // textAlign(CENTER);
         textSize(16);
-
-        text(btm, 14, 150);
+        btmX = 14;
+        btmY = 150
+        text(btm, btmX, btmY);
 
         
 
@@ -322,8 +329,11 @@ function draw() {
         // line(360, 235, 625, 235);
         // textAlign(CENTER);
         textSize(16);
+        btmX = 14;
+        btmY = 150
+        text(btm, btmX, btmY);
 
-        text(btm, 14, 150);
+
 
 
     }
@@ -332,6 +342,25 @@ function draw() {
 
     if (BPlayout) {
 
+        push();
+        imageMode(CENTER);
+        image(qteklogo, 80, 50, qteklogo.width / 2, qteklogo.height / 2);
+        //image(qteklogo, imgs[currentImg].width / 4 + 100, 50, qteklogo.width / 2, qteklogo.height / 2);
+        pop();
+
+        textSize(30);
+        fill(198, 0, 0);
+        text('Backplate Layout', 14, 120);
+
+
+
+        fill('blue');
+        // line(360, 235, 625, 235);
+        // textAlign(CENTER);
+        textSize(16);
+        btmX = 14;
+        btmY = 150
+        text(btm, btmX, btmY);
 
 
     }
@@ -340,6 +369,25 @@ function draw() {
 
 
     if(inventory){
+        push();
+        imageMode(CENTER);
+        image(qteklogo, 80, 50, qteklogo.width / 2, qteklogo.height / 2);
+        //image(qteklogo, imgs[currentImg].width / 4 + 100, 50, qteklogo.width / 2, qteklogo.height / 2);
+        pop();
+
+        textSize(30);
+        fill(198, 0, 0);
+        text('Inventory', 14, 120);
+
+
+
+        fill('blue');
+        // line(360, 235, 625, 235);
+        // textAlign(CENTER);
+        textSize(16);
+        btmX = 14;
+        btmY = 150
+        text(btm, btmX, btmY);
 
 
     }
@@ -422,7 +470,49 @@ function mouseClicked() {
 
 
 
-    if (isMouseInsideText(btm, 814, 150)) {
+if (isMouseInsideText(message5, message5X, message5Y)) {
+
+        cableLayout = true;
+
+        menu = false;
+        console.log("tblayout" + " " + pictures);
+        //console.log("menu " + " " + menu);
+
+        //window.open('http://www.chriscalver.com/', '_blank');
+        //window.open('/pics/0.jpg', '_blank');
+        // window.open('/data/Wirechart.gif', '_blank');
+    }
+
+
+    if (isMouseInsideText(message6, message6X, message6Y)) {
+
+        BPlayout = true;
+
+        menu = false;
+        console.log("tblayout" + " " + pictures);
+        //console.log("menu " + " " + menu);
+
+        //window.open('http://www.chriscalver.com/', '_blank');
+        //window.open('/pics/0.jpg', '_blank');
+        // window.open('/data/Wirechart.gif', '_blank');
+    }
+
+
+    if (isMouseInsideText(message7, message7X, message7Y)) {
+
+        inventory = true;
+
+        menu = false;
+        console.log("tblayout" + " " + pictures);
+        //console.log("menu " + " " + menu);
+
+        //window.open('http://www.chriscalver.com/', '_blank');
+        //window.open('/pics/0.jpg', '_blank');
+        // window.open('/data/Wirechart.gif', '_blank');
+    }
+
+
+    if (isMouseInsideText(btm, btmX, btmY)) {
 
         previous.position(-940, 100);
         next.position(-1020, 100);
@@ -430,6 +520,10 @@ function mouseClicked() {
         //setupButtons();
 
         pictures = false;
+        TBlayout = false;
+        cableLayout = false;
+        BPlayout = false;
+        inventory = false;
 
         //window.open('http://www.chriscalver.com/', '_blank');
         // window.open('/pics/QTEK.gif', '_blank');
