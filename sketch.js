@@ -30,7 +30,7 @@ const messageDoorX = 14;
 const messageDoorY = 183;
 
 const NUM_IMGS = 5,
-imgs = [];
+    imgs = [];
 let currentImg = 0;
 let backbackcounter = 0;
 let counter;
@@ -47,7 +47,7 @@ let btm = "Back to Main";
 let btmX = 814;
 let btmY = 150;
 
-let wirechartCVS;
+//let wirechartCVS;
 
 function preload() {
     qteklogo = loadImage('pics/QTEK.gif');
@@ -58,14 +58,14 @@ function preload() {
         loaded_image = loadImage(path)     // load the image from the path
         imgs.push(loaded_image)             // add the loaded path to ims
     }
-    wirechartCVS = loadTable("/data/wirechart.csv", "csv", "header");
+    //  wirechartCVS = loadTable("/data/wirechart.csv", "csv", "header");
 }
 
 function setup() {
     createCanvas(1200, 1000);
     //setupButtons();
-   // console.log("pictures" + " " + pictures);
-  //  console.log("menu " + " " + menu);
+    // console.log("pictures" + " " + pictures);
+    //  console.log("menu " + " " + menu);
     counter = new Count(0, 100)
     counter.start();
 }
@@ -73,10 +73,10 @@ function setup() {
 function draw() {
     background('white');
 
-    let rowCount = wirechartCVS.getRowCount();
-    console.log(rowCount);
-    console.log(wirechartCVS.get(4, "Color"));   
-
+    // let rowCount = wirechartCVS.getRowCount();
+    // console.log(rowCount);
+    // console.log(wirechartCVS.get(4, "Color"));   
+    console.log(btmY);
     if (menu) {
         let location = 285;
         let xlocation = 460;
@@ -84,7 +84,7 @@ function draw() {
         let Progress = map(sVal, 0, 100, 0, 100);
 
         fill(198, 0, 0);
-        textSize(14);        
+        textSize(14);
         //textFont('monospace')
         let txt = text('Progress: ' + sVal + '%', xlocation, location - 5);
         rect(xlocation, location, Progress, 9)
@@ -103,7 +103,7 @@ function draw() {
         // image(imgs[currentImg], 0, 0);
         textFont(font);
         fill('grey');
-    
+
         line(460, 235, 725, 235);
         // textAlign(CENTER);
         textSize(26);
@@ -183,7 +183,7 @@ function draw() {
             fill('grey');
             //  stroke(255);
         }
-        text(message7, message7X, message7Y);       
+        text(message7, message7X, message7Y);
 
         textFont(font);
         fill('grey');
@@ -210,13 +210,13 @@ function draw() {
         textFont(font);
         fill('grey');
         textSize(20);
-      
+
         fill('blue');
         // line(360, 235, 625, 235);
         // textAlign(CENTER);
         textSize(16);
         btmX = 14;
-        btmY = 250
+        btmY = 500
         text(btm, btmX, btmY);
 
         if (isMouseInsideText(messageBP, messageBPX, messageBPY)) {
@@ -229,7 +229,7 @@ function draw() {
             //  stroke(255);
         }
         text(messageBP, messageBPX, messageBPY);
-    
+
         if (isMouseInsideText(messageDoor, messageDoorX, messageDoorY)) {
             cursor(HAND);
             fill(0, 200, 255);
@@ -342,7 +342,7 @@ function draw() {
         btmY = 150
         text(btm, btmX, btmY);
     }
-    
+
 }
 
 // end of draw
@@ -367,6 +367,20 @@ var setupButtons = _ => {
 };
 
 function mouseClicked() {
+    if (isMouseInsideText(btm, btmX, btmY)) {
+        previous.position(-940, 100);
+        next.position(-1020, 100);
+
+        //setupButtons();
+        wirecharts = false;
+        pictures = false;
+        TBlayout = false;
+        cableLayout = false;
+        BPlayout = false;
+        inventory = false;
+        menu = true;
+    }
+
     if (isMouseInsideText(message, messageX, messageY)) {
         //  menu = false;
         //window.open('http://www.chriscalver.com/', '_blank');
@@ -396,35 +410,31 @@ function mouseClicked() {
 
     if (isMouseInsideText(message6, message6X, message6Y)) {
         BPlayout = true;
-        menu = false;        
+        menu = false;
     }
 
     if (isMouseInsideText(message7, message7X, message7Y)) {
         inventory = true;
-        menu = false;       
+        menu = false;
+    }
+    if (wirecharts) {
+        if (isMouseInsideText(messageBP, messageBPX, messageBPY)) {
+            window.open('data/Wirechart.pdf', '_blank');
+        }
+
+        if (isMouseInsideText(messageDoor, messageDoorX, messageDoorY)) {
+            window.open('data/Wirechart.pdf', '_blank');
+        }
+
+
     }
 
-    
-    
-    if (isMouseInsideText(btm, btmX, btmY)) {
-        previous.position(-940, 100);
-        next.position(-1020, 100);
-        menu = true;
-        //setupButtons();
-        wirecharts = false;
-        pictures = false;
-        TBlayout = false;
-        cableLayout = false;
-        BPlayout = false;
-        inventory = false;
-    }
-    if (isMouseInsideText(messageBP, messageBPX, messageBPY)) {
-        window.open('data/Wirechart.pdf', '_blank');
-    }
-    if (isMouseInsideText(messageDoor, messageDoorX, messageDoorY)) {
-        window.open('data/Wirechart.pdf', '_blank');
-    }
+
+
+
 }
+
+
 function isMouseInsideText(message, messageX, messageY) {
     const messageWidth = textWidth(message);
     const messageTop = messageY - textAscent();
