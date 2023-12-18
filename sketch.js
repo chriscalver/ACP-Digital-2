@@ -23,9 +23,11 @@ const message7X = xpos;
 const message7Y = 610;
 
 const messageBP = 'Backplate Wire Chart';
+let BPpic;
 const messageBPX = 14;
 const messageBPY = 153;
 const messageDoor = 'Door Wire Chart';
+let Doorpic;
 const messageDoorX = 14;
 const messageDoorY = 183;
 
@@ -68,6 +70,9 @@ function setup() {
     //  console.log("menu " + " " + menu);
     counter = new Count(0, 100)
     counter.start();
+    BPpic = loadImage('pics/15.jpg');
+    Doorpic = loadImage('pics/14.jpg');
+    
 }
 
 function draw() {
@@ -76,7 +81,9 @@ function draw() {
     // let rowCount = wirechartCVS.getRowCount();
     // console.log(rowCount);
     // console.log(wirechartCVS.get(4, "Color"));   
-    console.log(btmY);
+    
+
+
     if (menu) {
         let location = 285;
         let xlocation = 460;
@@ -202,6 +209,12 @@ function draw() {
         push();
         imageMode(CENTER);
         image(qteklogo, 80, 50, qteklogo.width / 2, qteklogo.height / 2);
+
+        image(Doorpic, 450, 250, Doorpic.width / 2, Doorpic.height / 2);
+        image(BPpic, 820, 330, BPpic.width / 2, BPpic.height / 2);
+
+      
+        
         //image(qteklogo, imgs[currentImg].width / 4 + 100, 50, qteklogo.width / 2, qteklogo.height / 2);
         pop();
         textSize(30);
@@ -216,7 +229,7 @@ function draw() {
         // textAlign(CENTER);
         textSize(16);
         btmX = 14;
-        btmY = 500
+        btmY = 300
         text(btm, btmX, btmY);
 
         if (isMouseInsideText(messageBP, messageBPX, messageBPY)) {
@@ -241,7 +254,7 @@ function draw() {
         }
         text(messageDoor, messageDoorX, messageDoorY);
 
-
+       // image(imgs[currentImg], 20, 20, imgs[currentImg].width / 4, imgs[currentImg].height / 4);
 
 
 
@@ -417,6 +430,7 @@ function mouseClicked() {
         inventory = true;
         menu = false;
     }
+
     if (wirecharts) {
         if (isMouseInsideText(messageBP, messageBPX, messageBPY)) {
             window.open('data/Wirechart.pdf', '_blank');
@@ -425,12 +439,7 @@ function mouseClicked() {
         if (isMouseInsideText(messageDoor, messageDoorX, messageDoorY)) {
             window.open('data/Wirechart.pdf', '_blank');
         }
-
-
     }
-
-
-
 
 }
 
