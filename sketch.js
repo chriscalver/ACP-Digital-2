@@ -6,21 +6,21 @@ const messageY = 370;
 const message2 = 'Electrical Drawing';
 const message2X = xpos;
 const message2Y = 410;
-const message3 = 'Pictures';
+const message3 = 'Inventory Shortages';
 const message3X = xpos;
 const message3Y = 450;
 const message4 = 'Terminalblock Layout';
 const message4X = xpos;
 const message4Y = 490;
-const message5 = 'Cable Layout Chart';
+const message5 = 'Cable Chart ';
 const message5X = xpos;
 const message5Y = 530;
 const message6 = 'Backplate Layout';
 const message6X = xpos;
 const message6Y = 570;
-const message7 = 'Inventory';
-const message7X = xpos;
-const message7Y = 610;
+// const message7 = 'Inventory';
+// const message7X = xpos;
+// const message7Y = 610;
 
 const messageBP = 'Backplate Wire Chart';
 let BPpic;
@@ -54,7 +54,7 @@ let btmY = 150;
 function preload() {
     qteklogo = loadImage('pics/QTEK.gif');
     font = loadFont('oswald.ttf');
-    let images = 2;
+    let images = 16;
     for (let i = 0; i < images; i++) {
         path = 'pics/' + str(i) + '.jpg' // create a path to the image
         loaded_image = loadImage(path)     // load the image from the path
@@ -92,7 +92,7 @@ function draw() {
 
         fill(198, 0, 0);
         textSize(14);
-        //textFont('monospace')
+        
         let txt = text('Progress: ' + sVal + '%', xlocation, location - 5);
         rect(xlocation, location, Progress, 9)
         stroke('black')
@@ -105,13 +105,13 @@ function draw() {
         setupButtons();
         push();
         imageMode(CENTER);
-        image(qteklogo, 525, 200, qteklogo.width / 2, qteklogo.height / 2);
+        image(qteklogo, 525, 180, qteklogo.width / 2, qteklogo.height / 2);
         pop();
         // image(imgs[currentImg], 0, 0);
         textFont(font);
         fill('grey');
 
-        line(460, 235, 725, 235);
+        line(460, 235, 760, 235);
         // textAlign(CENTER);
         textSize(26);
 
@@ -181,16 +181,16 @@ function draw() {
         }
         text(message6, message6X, message6Y);
 
-        if (isMouseInsideText(message7, message7X, message7Y)) {
-            cursor(HAND);
-            fill(0, 200, 255);
-            //stroke(0, 200, 255);
-        } else {
-            cursor(ARROW);
-            fill('grey');
-            //  stroke(255);
-        }
-        text(message7, message7X, message7Y);
+        // if (isMouseInsideText(message7, message7X, message7Y)) {
+        //     cursor(HAND);
+        //     fill(0, 200, 255);
+        //     //stroke(0, 200, 255);
+        // } else {
+        //     cursor(ARROW);
+        //     fill('grey');
+        //     //  stroke(255);
+        // }
+        // text(message7, message7X, message7Y);
 
         textFont(font);
         fill('grey');
@@ -198,10 +198,12 @@ function draw() {
         // text('ACP Digital Solutions', xpos, height - 30);
         textSize(50);
         fill(198, 0, 0);
-        text('ACP Digital Solutions', xpos, 150);
+        text('ACP Digital Solutions', xpos, 130);
         textSize(14);
         fill('black');
-        text('SUPERBOMBER #23352', xpos, 257);
+        text('SUPERBOMBER #23456-01', xpos, 232);
+        text('Due date: 01-12-24', xpos, 255);
+
         //image(qteklogo, 0, 0, qteklogo.width /2,  qteklogo.height /2);
     }
 
@@ -211,9 +213,7 @@ function draw() {
         image(qteklogo, 80, 50, qteklogo.width / 2, qteklogo.height / 2);
 
         image(Doorpic, 450, 250, Doorpic.width / 2, Doorpic.height / 2);
-        image(BPpic, 820, 330, BPpic.width / 2, BPpic.height / 2);
-
-      
+        image(BPpic, 820, 330, BPpic.width / 2, BPpic.height / 2);      
         
         //image(qteklogo, imgs[currentImg].width / 4 + 100, 50, qteklogo.width / 2, qteklogo.height / 2);
         pop();
@@ -407,7 +407,7 @@ function mouseClicked() {
         window.open('data/Electrical.pdf', '_blank');
     }
     if (isMouseInsideText(message3, message3X, message3Y)) {
-        pictures = true;
+        inventory = true;
         menu = false;
     }
 
@@ -426,10 +426,10 @@ function mouseClicked() {
         menu = false;
     }
 
-    if (isMouseInsideText(message7, message7X, message7Y)) {
-        inventory = true;
-        menu = false;
-    }
+    // if (isMouseInsideText(message7, message7X, message7Y)) {
+    //     inventory = true;
+    //     menu = false;
+    // }
 
     if (wirecharts) {
         if (isMouseInsideText(messageBP, messageBPX, messageBPY)) {
@@ -464,7 +464,7 @@ class Count {
         }
     }
     counter() {
-        if (this.s < 92) {
+        if (this.s < 24) {
             this.s = this.s + 4
             //this.p.html(this.s)
         }
