@@ -96,6 +96,22 @@ function draw() {
         let sVal = counter.s;
         let Progress = map(sVal, 0, 100, 0, 100);
 
+
+         textFont(font);
+        fill('grey');
+        textSize(14);
+        // text('ACP Digital Solutions', xpos, height - 30);
+        textSize(50);
+        fill(198, 0, 0);
+        text('ACP Digital Solutions', xpos, 130);
+        textSize(14);
+        fill('black');
+        text('SUPERBOMBER #23456-01', xpos, 232);
+        text('Due date: 01-12-24', xpos, 255);
+
+      //  image(qteklogo, 0, 0, qteklogo.width /2,  qteklogo.height /2);
+
+
         fill(198, 0, 0);
         textSize(14);
 
@@ -108,7 +124,7 @@ function draw() {
             counter.reset();
         }
 
-        setupButtons();
+        //setupButtons();
         push();
         imageMode(CENTER);
         image(qteklogo, 525, 180, qteklogo.width / 2, qteklogo.height / 2);
@@ -194,19 +210,7 @@ function draw() {
         // }
         // text(message7, message7X, message7Y);
 
-        textFont(font);
-        fill('grey');
-        textSize(14);
-        // text('ACP Digital Solutions', xpos, height - 30);
-        textSize(50);
-        fill(198, 0, 0);
-        text('ACP Digital Solutions', xpos, 130);
-        textSize(14);
-        fill('black');
-        text('SUPERBOMBER #23456-01', xpos, 232);
-        text('Due date: 01-12-24', xpos, 255);
-
-        //image(qteklogo, 0, 0, qteklogo.width /2,  qteklogo.height /2);
+       
     }
 
     if (wirecharts) {
@@ -292,7 +296,7 @@ function draw() {
         text(btm, btmX, btmY);
 
         if (backbackcounter < 1) {
-            setupButtons();
+          //  setupButtons();
         }
         previous.position(1090 + 80, 90);
         next.position(1150 + 80, 90);
@@ -398,8 +402,8 @@ var setupButtons = _ => {
 function mouseClicked() {
     
     if (isMouseInsideText(btm, btmX, btmY)) {
-        previous.position(-940, 100);
-        next.position(-1020, 100);
+        //previous.position(-940, 100);
+        //next.position(-1020, 100);
 
         //setupButtons();
         wirecharts = false;
@@ -480,15 +484,22 @@ function mouseClicked() {
 
     }
 }
-
-
 function isMouseInsideText(message, messageX, messageY) {
     const messageWidth = textWidth(message);
     const messageTop = messageY - textAscent();
     const messageBottom = messageY + textDescent();
+  
     return mouseX > messageX && mouseX < messageX + messageWidth &&
-        mouseY > messageTop && mouseY < messageBottom;
-}
+      mouseY > messageTop && mouseY < messageBottom;
+  }
+
+// function isMouseInsideText(message, messageX, messageY) {
+//     const messageWidth = textWidth(message);
+//     const messageTop = messageY - textAscent();
+//     const messageBottom = messageY + textDescent();
+//     return mouseX > messageX && mouseX < messageX + messageWidth &&
+//         mouseY > messageTop && mouseY < messageBottom;
+// }
 
 class Count {
     constructor(s, w) {
