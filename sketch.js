@@ -21,18 +21,33 @@ const message6Y = 570;
 const message7 = '';
 const message7X = xpos;
 const message7Y = 610;
+
 const messageBP = 'Backplate Wire Chart';
 let BPpic;
 const messageBPX = 14;
 const messageBPY = 153;
+
 const messageDoor = 'Door Wire Chart';
 let Doorpic;
 const messageDoorX = 14;
 const messageDoorY = 183;
+
 const messageBulkhead = 'Bulkhead Layout';
 let Bulkhead;
 const messageBulkheadX = 14;
 const messageBulkheadY = 213;
+
+const messageTerminal = "View Terminal Spreadsheet";
+let Terminal;
+const messageTerminalX = 14;
+const messageTerminalY = 153;
+
+const messageBPLayout = "Backplate Lazercutter info";
+let BPLayout;
+const messageBPLayoutX = 14;
+const messageBPLayoutY = 153;
+
+
 const NUM_IMGS = 5,
     imgs = [];
 let currentImg = 0;
@@ -49,6 +64,17 @@ let btm = "Back to Main";
 let btmX = 814;
 let btmY = 150;
 let wirechartCVS;
+let terminalblock;
+let terminalblock2;
+let checkmark;
+let inventory1;
+let inventory2;
+let inventory3;
+let inventory4;
+let mySelect1;
+let mySelect2;
+let mySelect3;
+let mySelect4;
 
 function preload() {
     qteklogo = loadImage('pics/QTEK.gif');
@@ -59,13 +85,13 @@ function preload() {
     //     loaded_image = loadImage(path)     // load the image from the path
     //     imgs.push(loaded_image)             // add the loaded path to ims
     // }
-  wirechartCVS = loadTable("data/wirechart.csv", "csv", "header");
- // console.log("PPPPPPPPPP" + wirechartCVS);
+    wirechartCVS = loadTable("data/wirechart.csv", "csv", "header");
+    // console.log("PPPPPPPPPP" + wirechartCVS);
 }
 
 function setup() {
     createCanvas(1200, 1000);
-    frameRate(5);
+    frameRate(15);
     //setupButtons();
     // console.log("pictures" + " " + pictures);
     //  console.log("menu " + " " + menu);
@@ -73,7 +99,17 @@ function setup() {
     counter.start();
     BPpic = loadImage('pics/backplate.jpg');
     Doorpic = loadImage('pics/door.jpg');
-    Bulkhead = loadImage('pics/bulkhead3.jpg')
+    Bulkhead = loadImage('pics/bulkhead3.jpg');
+
+    checkmark = loadImage('pics/checkmark.png');
+    terminalblock = loadImage('pics/terminalblock.jpg');
+    terminalblock2 = loadImage('pics/terminalblock2.jpg');
+    inventory1 = loadImage('pics/enclosure.jpg')
+    inventory2 = loadImage('pics/layout.jpg')
+    inventory3 = loadImage('pics/hmi.jpg')
+    inventory4 = loadImage('pics/bulkhead5.jpg')
+
+
     // Doorpic.mouseClicked(window.open('http://chriscalver.com'));
 }
 
@@ -82,12 +118,15 @@ function draw() {
     let rowCount = wirechartCVS.getRowCount();
     // console.log(rowCount);
     // console.log("*******" + wirechartCVS.get(3, "Color"));   
+
+
     if (menu) {
+        removeElements();
         let location = 285;
         let xlocation = 460;
         let sVal = counter.s;
         let Progress = map(sVal, 0, 100, 0, 100);
-         textFont(font);
+        textFont(font);
         fill('grey');
         textSize(14);
         // text('ACP Digital Solutions', xpos, height - 30);
@@ -117,12 +156,12 @@ function draw() {
         // image(imgs[currentImg], 0, 0);
         textFont(font);
         fill('grey');
-        line(460, 235, 760, 235);
+        line(460, 235, 620, 235);
         // textAlign(CENTER);
         textSize(26);
         if (isMouseInsideText(message, messageX, messageY)) {
-                fill(0, 200, 255);
-         } else {
+            fill(0, 200, 255);
+        } else {
             fill('grey');
         }
         text(message, messageX, messageY);    //Inventory
@@ -188,16 +227,119 @@ function draw() {
         // text(message7, message7X, message7Y);       
     }
 
-    if (wirecharts) {
+    if (inventory) {
+        //removeElements();
         push();
         imageMode(CENTER);
         image(qteklogo, 80, 50, qteklogo.width / 2, qteklogo.height / 2);
-        image(Doorpic, 350, 170, Doorpic.width / 4, Doorpic.height / 4);
-        //Doorpic.mouseClicked(window.open('http://chriscalver.com'));
-        image(BPpic, 550, 170, BPpic.width / 3.8, BPpic.height / 3.8);
-        image(Bulkhead, 820, 170, Bulkhead.width / 3, Bulkhead.height / 3);
-        //image(qteklogo, imgs[currentImg].width / 4 + 100, 50, qteklogo.width / 2, qteklogo.height / 2);
         pop();
+        textSize(30);
+        fill(198, 0, 0);
+        text('Inventory Central', 14, 120);
+
+        let picpos = 50;
+        let headpos = 260;
+        let selpos =  picpos + 225;
+
+        textSize(20);
+        fill(198, 0, 0);
+        text('Enclosures', 327, headpos);
+        text('Backplates', 505, headpos);
+        text('Operator STN', 676, headpos);
+        text('Cables', 885, headpos);
+        
+        image(inventory1, 300, picpos, inventory1.width / 4, inventory1.height / 4);
+
+        image(inventory2, 478, picpos + 4, inventory2.width / 3.6, inventory2.height / 3.6);
+
+        image(inventory3, 652, picpos, inventory3.width / 4.2, inventory3.height / 4.2);
+
+        image(inventory4, 845, picpos, inventory4.width / 3.1, inventory4.height / 3.1);
+
+        image(checkmark, 692, picpos + 195, checkmark.width / 4, checkmark.height / 4);
+        image(checkmark, 329, picpos + 195, checkmark.width / 4, checkmark.height / 4);
+
+
+        
+
+        // mySelect1 = createSelect();
+        // mySelect1.position(473, selpos);
+        // mySelect1.option('Missing Items', 'red');
+        // mySelect1.option('Enet Rec', 'green');
+        // mySelect1.option('three', 'blue');
+        // mySelect1.option('four', 'yellow');
+        // mySelect1.selected('Missing Items');
+
+
+        mySelect2 = createSelect();
+        mySelect2.position(642, selpos);
+        mySelect2.option('(6)Missing Items', 'red');
+        mySelect2.option('4A breaker', 'green');
+        mySelect2.option('2A breaker', 'blue');
+        mySelect2.option('1A breaker', 'yellow');
+        mySelect2.option('15A breaker', 'pink');
+        mySelect2.option('Contactor1', 'black');
+        mySelect2.option('Contactor2', 'orange');
+        
+        mySelect2.selected('(6)Missing Items');
+
+        // mySelect3 = createSelect();
+        // mySelect3.position(833, selpos);
+        // mySelect3.option('Missing Items', 'red');
+        // mySelect3.option('two', 'green');
+        // mySelect3.option('three', 'blue');
+        // mySelect3.option('four', 'yellow');
+        // mySelect3.selected('Missing Items');
+
+        mySelect4 = createSelect();
+        mySelect4.position(1010, selpos);
+        mySelect4.option('(2)Missing Items', 'red');
+        mySelect4.option('1683002', 'green');
+        mySelect4.option('1415943', 'blue');
+       
+        mySelect4.selected('(2)Missing Items');
+
+
+        fill('blue');
+        textSize(16);
+        text('Good to Go!', 331, headpos + 85);
+        text('Good to Go!', 695, headpos + 85);
+
+
+        btmX = 14;
+        btmY = 180
+        text(btm, btmX, btmY);
+
+    }
+
+
+
+    if (wirecharts) {
+        removeElements();
+        textSize(16);
+        textFont(font);
+        fill('grey');
+         text('Door wirechart', 320, 270);
+        text('Backplates', 510, 270);
+        text('Bulkhead Layout', 676, 270);
+        // image(inventory3, 845, 70, inventory4.width / 3.1, inventory4.height / 3.1);
+        push();
+        imageMode(CENTER);
+        image(qteklogo, 80, 50, qteklogo.width / 2, qteklogo.height / 2);
+        // image(Doorpic, 350, 170, Doorpic.width / 4, Doorpic.height / 4);
+        // //Doorpic.mouseClicked(window.open('http://chriscalver.com'));
+        // image(BPpic, 550, 170, BPpic.width / 3.8, BPpic.height / 3.8);
+        // image(Bulkhead, 820, 170, Bulkhead.width / 3, Bulkhead.height / 3);
+        pop();
+        image(inventory1, 300, 70, inventory1.width / 4, inventory1.height / 4);
+
+        image(inventory2, 478, 70 + 4, inventory2.width / 3.6, inventory2.height / 3.6);
+
+        image(inventory4, 652, 70, inventory3.width / 4.2, inventory3.height / 4.2);
+
+
+       
+
         textSize(30);
         fill(198, 0, 0);
         text('Wirecharts', 14, 120);
@@ -258,7 +400,7 @@ function draw() {
         btmY = 150
         text(btm, btmX, btmY);
         if (backbackcounter < 1) {
-          //  setupButtons();
+            //  setupButtons();
         }
         previous.position(1090 + 80, 90);
         next.position(1150 + 80, 90);
@@ -280,14 +422,31 @@ function draw() {
         // textAlign(CENTER);
         textSize(16);
         btmX = 14;
-        btmY = 150
+        btmY = 210
         text(btm, btmX, btmY);
+
+        //text(messageTerminal, messageTerminalX, messageTerminalY);
+        if (isMouseInsideText(messageTerminal, messageTerminalX, messageTerminalY)) {
+            cursor(HAND);
+            fill(0, 200, 255);
+            //stroke(0, 200, 255);
+        } else {
+            cursor(ARROW);
+            fill('grey');
+            //  stroke(255);
+        }
+        text(messageTerminal, messageTerminalX, messageTerminalY);
+
+
+        image(terminalblock2, 370, 350, terminalblock2.width / 1.5, terminalblock2.height / 1.5);
+
+        image(terminalblock, 380, 50, terminalblock.width / 2.5, terminalblock.height / 2.5);
+
     }
     if (cableLayout) {
         push();
         imageMode(CENTER);
         image(qteklogo, 80, 50, qteklogo.width / 2, qteklogo.height / 2);
-        //image(qteklogo, imgs[currentImg].width / 4 + 100, 50, qteklogo.width / 2, qteklogo.height / 2);
         pop();
         textSize(30);
         fill(198, 0, 0);
@@ -303,7 +462,6 @@ function draw() {
         push();
         imageMode(CENTER);
         image(qteklogo, 80, 50, qteklogo.width / 2, qteklogo.height / 2);
-        //image(qteklogo, imgs[currentImg].width / 4 + 100, 50, qteklogo.width / 2, qteklogo.height / 2);
         pop();
         textSize(30);
         fill(198, 0, 0);
@@ -313,24 +471,26 @@ function draw() {
         // textAlign(CENTER);
         textSize(16);
         btmX = 14;
-        btmY = 150
+        btmY = 210
         text(btm, btmX, btmY);
+
+        if (isMouseInsideText(messageBPLayout, messageBPLayoutX, messageBPLayoutY)) {
+            cursor(HAND);
+            fill(0, 200, 255);
+            //stroke(0, 200, 255);
+        } else {
+            cursor(ARROW);
+            fill('grey');
+            //  stroke(255);
+        }
+        text(messageBPLayout, messageBPLayoutX, messageBPLayoutY);
+
+
+
     }
-    if (inventory) {
-        push();
-        imageMode(CENTER);
-        image(qteklogo, 80, 50, qteklogo.width / 2, qteklogo.height / 2);
-        //image(qteklogo, imgs[currentImg].width / 4 + 100, 50, qteklogo.width / 2, qteklogo.height / 2);
-        pop();
-        textSize(30);
-        fill(198, 0, 0);
-        text('Inventory Central', 14, 120);
-        fill('blue');
-        textSize(16);
-        btmX = 14;
-        btmY = 150
-        text(btm, btmX, btmY);
-    }
+    
+
+
 }
 // end of draw
 var setupButtons = _ => {
@@ -352,7 +512,7 @@ var setupButtons = _ => {
     });
 };
 
-function mouseClicked() {    
+function mouseClicked() {
     if (isMouseInsideText(btm, btmX, btmY)) {
         //previous.position(-940, 100);
         //next.position(-1020, 100);
@@ -371,15 +531,15 @@ function mouseClicked() {
             //window.open('http://www.chriscalver.com/', '_blank');
             // window.open('/pics/QTEK.gif', '_blank');
             // window.open('data/Wirechart.pdf', '_blank');
-            inventory = true;           
+            inventory = true;
             menu = false;
         }
         if (isMouseInsideText(message2, message2X, message2Y)) {
             wirecharts = true;
             menu = false;
         }
-        if (isMouseInsideText(message3, message3X, message3Y)) {                
-            window.open('data/Electrical.pdf', '_blank');      
+        if (isMouseInsideText(message3, message3X, message3Y)) {
+            window.open('data/Electrical.pdf', '_blank');
         }
         if (isMouseInsideText(message4, message4X, message4Y)) {
             TBlayout = true;
@@ -389,7 +549,7 @@ function mouseClicked() {
             BPlayout = true;
             menu = false;
         }
-        if (isMouseInsideText(message6, message6X, message6Y)) {           
+        if (isMouseInsideText(message6, message6X, message6Y)) {
             cableLayout = true;
             menu = false;
         }
@@ -410,24 +570,36 @@ function mouseClicked() {
         }
         console.log("X " + mouseX);
         console.log("Y " + mouseY);
-        if(mouseX > 266 && mouseX < 430 && mouseY > 60 && mouseY < 281){
+        if (mouseX > 300 && mouseX < 430 && mouseY > 70 && mouseY < 275) {
             window.open('data/QTEKdoorWirechart.pdf', '_blank');
-        }       
-        if(mouseX > 460 && mouseX < 635 && mouseY > 60 && mouseY < 281){
+        }
+        if (mouseX > 475 && mouseX < 600 && mouseY > 70 && mouseY < 275) {
             window.open('data/QTEKbackplateWirechart.pdf', '_blank');
         }
-        if(mouseX > 668 && mouseX < 968 && mouseY > 60 && mouseY < 281){
-           window.open('data/QTEKbulkheadCablechart.pdf', '_blank');
-        }  
+        if (mouseX > 650 && mouseX < 800 && mouseY > 70 && mouseY < 281) {
+            window.open('data/QTEKbulkheadCablechart.pdf', '_blank');
+        }
     }
+    if (TBlayout) {
+        if (isMouseInsideText(messageTerminal, messageTerminalX, messageTerminalY)) {
+            window.open('data/QTEKbackplateWirechart.pdf', '_blank');
+        }
+
+    }
+
+    if (BPLayout) {
+        window.open('data/QTEKbackplateWirechart.pdf', '_blank');
+
+    }
+
 }
 function isMouseInsideText(message, messageX, messageY) {
     const messageWidth = textWidth(message);
     const messageTop = messageY - textAscent();
-    const messageBottom = messageY + textDescent();  
+    const messageBottom = messageY + textDescent();
     return mouseX > messageX && mouseX < messageX + messageWidth &&
-      mouseY > messageTop && mouseY < messageBottom;
-  }
+        mouseY > messageTop && mouseY < messageBottom;
+}
 // function isMouseInsideText(message, messageX, messageY) {
 //     const messageWidth = textWidth(message);
 //     const messageTop = messageY - textAscent();
