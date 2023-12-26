@@ -25,12 +25,12 @@ const message7Y = 610;
 const messageBP = 'Backplate Wire Chart';
 let BPpic;
 const messageBPX = 14;
-const messageBPY = 153;
+const messageBPY = 183;
 
 const messageDoor = 'Door Wire Chart';
 let Doorpic;
 const messageDoorX = 14;
-const messageDoorY = 183;
+const messageDoorY = 153;
 
 const messageBulkhead = 'Bulkhead Layout';
 let Bulkhead;
@@ -238,7 +238,7 @@ function draw() {
         text('Inventory Central', 14, 120);
 
         let picpos = 50;
-        let headpos = 260;
+        let headpos = 258;
         let selpos =  picpos + 225;
 
         textSize(20);
@@ -256,8 +256,8 @@ function draw() {
 
         image(inventory4, 845, picpos, inventory4.width / 3.1, inventory4.height / 3.1);
 
-        image(checkmark, 692, picpos + 195, checkmark.width / 4, checkmark.height / 4);
-        image(checkmark, 329, picpos + 195, checkmark.width / 4, checkmark.height / 4);
+        image(checkmark, 692, picpos + 198, checkmark.width / 4, checkmark.height / 4);
+        image(checkmark, 329, picpos + 198, checkmark.width / 4, checkmark.height / 4);
 
 
         
