@@ -92,7 +92,7 @@ function preload() {
 
 function setup() {
     canvas = createCanvas(1200, 1000);
-    canvas.position(200, 0)
+    canvas.position(100, 0)
     frameRate(15);
     //setupButtons();
     // console.log("pictures" + " " + pictures);
@@ -239,14 +239,14 @@ function draw() {
         fill(198, 0, 0);
         text('Inventory Central', 14, 120);
 
-        let picpos = 25;  //y
+        let picpos = 95;  //y
         let headpos = picpos + 218;
         let selpos = picpos + 225;
 
         textSize(20);
         fill(198, 0, 0);
         text('Enclosures', 327, headpos);
-        text('Backplates', 505, headpos);
+        text('Backplates', 503, headpos);
         text('Operator STN', 676, headpos);
         text('Cables', 885, headpos);
 
@@ -258,9 +258,9 @@ function draw() {
 
         image(inventory4, 845, picpos, inventory4.width / 3.1, inventory4.height / 3.1);
 
-        image(checkmark, 692, picpos + 198, checkmark.width / 4, checkmark.height / 4);
-        image(checkmark, 329, picpos + 198, checkmark.width / 4, checkmark.height / 4);
-
+         image(checkmark, 340, picpos + 210, checkmark.width / 5, checkmark.height / 5);
+         image(checkmark, 699, picpos + 210, checkmark.width / 5, checkmark.height / 5);
+    
 
 
         //textSize(18);
@@ -273,8 +273,8 @@ function draw() {
         // mySelect1.selected('Missing Items');
 
         mySelect2 = createSelect();
-        mySelect2.position(682, selpos);
-
+        mySelect2.position(582, selpos);
+        mySelect2.style('font-size', '10px');
         mySelect2.style('background-color', 'white');
         mySelect2.style('border-radius', '3px');
         mySelect2.style('width', '120px');
@@ -298,10 +298,11 @@ function draw() {
         // mySelect3.selected('Missing Items');
 
         mySelect4 = createSelect();
-        mySelect4.position(1051, selpos);
+        mySelect4.position(951, selpos);
         mySelect4.style('background-color', 'white');
         mySelect4.style('border-radius', '3px');
         mySelect4.style('width', '120px');
+        mySelect4.style('font-size', '10px');
         //   mySelect4.style('padding', '0.2em');
 
         mySelect4.option('(2)Missing Items', 'red');
@@ -311,8 +312,8 @@ function draw() {
 
         fill('blue');
         textSize(16);
-        text('Good to Go!', 331, headpos + 85);
-        text('Good to Go!', 695, headpos + 85);
+        text('Good to Go!', 335, headpos + 70);
+        text('Good to Go!', 698, headpos + 70);
 
 
         btmX = 14;
