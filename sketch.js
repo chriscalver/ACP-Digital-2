@@ -75,6 +75,7 @@ let mySelect1;
 let mySelect2;
 let mySelect3;
 let mySelect4;
+let canvas;
 
 function preload() {
     qteklogo = loadImage('pics/QTEK.gif');
@@ -90,7 +91,8 @@ function preload() {
 }
 
 function setup() {
-    createCanvas(1200, 1000);
+    canvas = createCanvas(1200, 1000);
+    canvas.position(200, 0)
     frameRate(15);
     //setupButtons();
     // console.log("pictures" + " " + pictures);
@@ -237,9 +239,9 @@ function draw() {
         fill(198, 0, 0);
         text('Inventory Central', 14, 120);
 
-        let picpos = 50;
-        let headpos = 258;
-        let selpos =  picpos + 225;
+        let picpos = 25;  //y
+        let headpos = picpos + 218;
+        let selpos = picpos + 225;
 
         textSize(20);
         fill(198, 0, 0);
@@ -247,7 +249,7 @@ function draw() {
         text('Backplates', 505, headpos);
         text('Operator STN', 676, headpos);
         text('Cables', 885, headpos);
-        
+
         image(inventory1, 300, picpos, inventory1.width / 4, inventory1.height / 4);
 
         image(inventory2, 478, picpos + 4, inventory2.width / 3.6, inventory2.height / 3.6);
@@ -260,8 +262,8 @@ function draw() {
         image(checkmark, 329, picpos + 198, checkmark.width / 4, checkmark.height / 4);
 
 
-        
 
+        //textSize(18);
         // mySelect1 = createSelect();
         // mySelect1.position(473, selpos);
         // mySelect1.option('Missing Items', 'red');
@@ -270,9 +272,13 @@ function draw() {
         // mySelect1.option('four', 'yellow');
         // mySelect1.selected('Missing Items');
 
-
         mySelect2 = createSelect();
-        mySelect2.position(642, selpos);
+        mySelect2.position(682, selpos);
+
+        mySelect2.style('background-color', 'white');
+        mySelect2.style('border-radius', '3px');
+        mySelect2.style('width', '120px');
+        //  mySelect2.style('padding', '0.5em');
         mySelect2.option('(6)Missing Items', 'red');
         mySelect2.option('4A breaker', 'green');
         mySelect2.option('2A breaker', 'blue');
@@ -280,8 +286,8 @@ function draw() {
         mySelect2.option('15A breaker', 'pink');
         mySelect2.option('Contactor1', 'black');
         mySelect2.option('Contactor2', 'orange');
-        
-        mySelect2.selected('(6)Missing Items');
+
+        // mySelect2.selected('(6)Missing Items');
 
         // mySelect3 = createSelect();
         // mySelect3.position(833, selpos);
@@ -292,13 +298,16 @@ function draw() {
         // mySelect3.selected('Missing Items');
 
         mySelect4 = createSelect();
-        mySelect4.position(1010, selpos);
+        mySelect4.position(1051, selpos);
+        mySelect4.style('background-color', 'white');
+        mySelect4.style('border-radius', '3px');
+        mySelect4.style('width', '120px');
+        //   mySelect4.style('padding', '0.2em');
+
         mySelect4.option('(2)Missing Items', 'red');
         mySelect4.option('1683002', 'green');
-        mySelect4.option('1415943', 'blue');
+        mySelect4.option('1415943', 'blue');      
        
-        mySelect4.selected('(2)Missing Items');
-
 
         fill('blue');
         textSize(16);
@@ -319,7 +328,7 @@ function draw() {
         textSize(16);
         textFont(font);
         fill('grey');
-         text('Door wirechart', 320, 270);
+        text('Door wirechart', 320, 270);
         text('Backplates', 510, 270);
         text('Bulkhead Layout', 676, 270);
         // image(inventory3, 845, 70, inventory4.width / 3.1, inventory4.height / 3.1);
@@ -338,7 +347,7 @@ function draw() {
         image(inventory4, 652, 70, inventory3.width / 4.2, inventory3.height / 4.2);
 
 
-       
+
 
         textSize(30);
         fill(198, 0, 0);
@@ -488,7 +497,7 @@ function draw() {
 
 
     }
-    
+
 
 
 }
