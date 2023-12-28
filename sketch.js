@@ -12,7 +12,7 @@ const message3Y = 450;
 const message4 = 'Terminalblock Layout';
 const message4X = xpos;
 const message4Y = 490;
-const message5 = 'Backplate Layout';
+const message5 = 'Backplate Layout Details';
 const message5X = xpos;
 const message5Y = 530;
 const message6 = '';
@@ -47,7 +47,7 @@ let BPLayout;
 const messageBPLayoutX = 14;
 const messageBPLayoutY = 153;
 
-const messageBOMLayout = "View Full BOM";
+const messageBOMLayout = "BOM and Inventory PDF";
 let BOMLayout;
 const messageBOMLayoutX = 14;
 const messageBOMLayoutY = 153;
@@ -76,6 +76,7 @@ let inventory1;
 let inventory2;
 let inventory3;
 let inventory4;
+let inventory5;
 let mySelect1;
 let mySelect2;
 let mySelect3;
@@ -111,10 +112,11 @@ function setup() {
     checkmark = loadImage('pics/checkmark.png');
     terminalblock = loadImage('pics/terminalblock.jpg');
     terminalblock2 = loadImage('pics/terminalblock2.jpg');
-    inventory1 = loadImage('pics/enclosure.jpg')
-    inventory2 = loadImage('pics/layout.jpg')
-    inventory3 = loadImage('pics/hmi.jpg')
-    inventory4 = loadImage('pics/bulkhead5.jpg')
+    inventory1 = loadImage('pics/enclosure.jpg');
+    inventory2 = loadImage('pics/layout.jpg');
+    inventory3 = loadImage('pics/hmi.jpg');
+    inventory4 = loadImage('pics/bulkhead5.jpg');    
+    inventory5 = loadImage('pics/etc.jpg');
 
 
     // Doorpic.mouseClicked(window.open('http://chriscalver.com'));
@@ -269,11 +271,13 @@ function draw() {
         text('Backplates', 503, headpos);
         text('Operator STN', 676, headpos);
         text('Cables', 885, headpos);
+        text('Etc', 1060, headpos);
 
         image(inventory1, 300, picpos, inventory1.width / 4, inventory1.height / 4);
         image(inventory2, 478, picpos + 4, inventory2.width / 3.6, inventory2.height / 3.6);
         image(inventory3, 652, picpos, inventory3.width / 4.2, inventory3.height / 4.2);
         image(inventory4, 845, picpos, inventory4.width / 3.1, inventory4.height / 3.1);
+        image(inventory5, 1020, picpos, inventory5.width / 6, inventory5.height / 6);
 
         image(checkmark, 340, checkpos, checkmark.width / 5, checkmark.height / 5);
         image(checkmark, 699, checkpos, checkmark.width / 5, checkmark.height / 5);
