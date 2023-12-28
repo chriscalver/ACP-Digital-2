@@ -55,6 +55,8 @@ const messageBOMLayoutY = 153;
 
 const NUM_IMGS = 5,
     imgs = [];
+
+let myArray = [];
 let currentImg = 0;
 let backbackcounter = 0;
 let counter;
@@ -82,23 +84,35 @@ let mySelect2;
 let mySelect3;
 let mySelect4;
 let canvas;
+let indent = 150;
+
 
 function preload() {
     qteklogo = loadImage('pics/QTEK.gif');
     font = loadFont('oswald.ttf');
-    let images = 16;
+    //let images = 16;
     // for (let i = 3; i < images; i++) {
     //     path = 'pics/TestImages' + str(i) + '.jpg' // create a path to the image
     //     loaded_image = loadImage(path)     // load the image from the path
     //     imgs.push(loaded_image)             // add the loaded path to ims
     // }
-    wirechartCVS = loadTable("data/wirechart.csv", "csv", "header");
+    // wirechartCVS = loadTable("data/wirechart.csv", "csv", "header");
     // console.log("PPPPPPPPPP" + wirechartCVS);
 }
 
 function setup() {
-    canvas = createCanvas(1200, 1000);
-    canvas.position(100, 0)
+
+   
+   
+    console.log(windowWidth);
+
+    if (windowWidth >= 1600) {
+        indent = 300;
+
+    }
+
+    canvas = createCanvas(windowWidth, windowHeight);
+    canvas.position(indent, 0)
     frameRate(15);
     //setupButtons();
     // console.log("pictures" + " " + pictures);
@@ -115,16 +129,25 @@ function setup() {
     inventory1 = loadImage('pics/enclosure.jpg');
     inventory2 = loadImage('pics/layout.jpg');
     inventory3 = loadImage('pics/hmi.jpg');
-    inventory4 = loadImage('pics/bulkhead5.jpg');    
+    inventory4 = loadImage('pics/cables.jpg');
     inventory5 = loadImage('pics/etc.jpg');
+    wirechart1 = loadImage('pics/bulkhead5.jpg');
 
-
+    fetch('data/QtekBOM.xlsx')
+        .then(response => response.blob())
+        .then(blob => readXlsxFile(blob))
+        .then((rows) => {
+            //   console.log(rows);
+            //     // LOOP THROUGH ROWS
+            append(myArray, rows);
+            console.log(myArray);     // 0 is the blob  2 is the row 3 is the column            
+        });
     // Doorpic.mouseClicked(window.open('http://chriscalver.com'));
 }
 
 function draw() {
     background('white');
-    let rowCount = wirechartCVS.getRowCount();
+    //let rowCount = wirechartCVS.getRowCount();
     // console.log(rowCount);
     // console.log("*******" + wirechartCVS.get(3, "Color"));   
 
@@ -283,6 +306,19 @@ function draw() {
         image(checkmark, 699, checkpos, checkmark.width / 5, checkmark.height / 5);
 
 
+        textSize(16);
+        textFont(font);
+        fill('grey');
+        text('Wire labels - Door', 1022, headpos + 25);
+        text('Wire labels - Backplate', 1022, headpos + 45);
+        text('Wire labels - OP STN', 1022, headpos + 65);
+        text('Wire labels - Door', 1022, headpos + 85);
+        
+        indent = 0;
+        if (windowWidth >= 1600) {
+            indent = 300/2;
+    
+        }
 
         //textSize(18);
         // mySelect1 = createSelect();
@@ -294,7 +330,7 @@ function draw() {
         // mySelect1.selected('Missing Items');
 
         mySelect2 = createSelect();
-        mySelect2.position(582, selpos);
+        mySelect2.position(632 + indent, selpos);
         mySelect2.style('font-size', '10px');
         mySelect2.style('background-color', 'white');
         mySelect2.style('border-radius', '3px');
@@ -319,7 +355,7 @@ function draw() {
         // mySelect3.selected('Missing Items');
 
         mySelect4 = createSelect();
-        mySelect4.position(951, selpos);
+        mySelect4.position(998 + indent, selpos);
         mySelect4.style('background-color', 'white');
         mySelect4.style('border-radius', '3px');
         mySelect4.style('width', '120px');
@@ -365,7 +401,7 @@ function draw() {
 
         image(inventory1, 300, 65, inventory1.width / 4, inventory1.height / 4);
         image(inventory2, 478, 65 + 4, inventory2.width / 3.6, inventory2.height / 3.6);
-        image(inventory4, 652, 65, inventory3.width / 4.2, inventory3.height / 4.2);
+        image(wirechart1, 652, 65, inventory3.width / 4.2, inventory3.height / 4.2);
 
         textSize(30);
         fill(198, 0, 0);
