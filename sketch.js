@@ -3,7 +3,7 @@ let xpos = 460;
 const message = 'Inventory Central';
 const messageX = xpos;
 const messageY = 370;
-const message2 = 'Wire Charts';
+const message2 = 'Wire Charts and Diagrams';
 const message2X = xpos;
 const message2Y = 410;
 const message3 = 'Electrical Drawing';
@@ -32,7 +32,7 @@ let Doorpic;
 const messageDoorX = 14;
 const messageDoorY = 153;
 
-const messageBulkhead = 'Bulkhead Layout';
+const messageBulkhead = 'Cable Layout';
 let Bulkhead;
 const messageBulkheadX = 14;
 const messageBulkheadY = 213;
@@ -239,9 +239,9 @@ function draw() {
         fill(198, 0, 0);
         text('Inventory Central', 14, 120);
 
-        let picpos = 95;  //y
+        let picpos = 65;  //y
         let headpos = picpos + 218;
-        let selpos = picpos + 225;
+        let selpos = picpos + 230;
 
         textSize(20);
         fill(198, 0, 0);
@@ -312,8 +312,8 @@ function draw() {
 
         fill('blue');
         textSize(16);
-        text('Good to Go!', 335, headpos + 70);
-        text('Good to Go!', 698, headpos + 70);
+        text('Good to Go!', 335, headpos + 75);
+        text('Good to Go!', 694, headpos + 75);
 
 
         btmX = 14;
@@ -329,9 +329,9 @@ function draw() {
         textSize(16);
         textFont(font);
         fill('grey');
-        text('Door wirechart', 320, 270);
+        text('Door Wire Chart', 315, 270);
         text('Backplates', 510, 270);
-        text('Bulkhead Layout', 676, 270);
+        text('Cable Layout', 685, 270);
         // image(inventory3, 845, 70, inventory4.width / 3.1, inventory4.height / 3.1);
         push();
         imageMode(CENTER);
@@ -341,11 +341,13 @@ function draw() {
         // image(BPpic, 550, 170, BPpic.width / 3.8, BPpic.height / 3.8);
         // image(Bulkhead, 820, 170, Bulkhead.width / 3, Bulkhead.height / 3);
         pop();
-        image(inventory1, 300, 70, inventory1.width / 4, inventory1.height / 4);
 
-        image(inventory2, 478, 70 + 4, inventory2.width / 3.6, inventory2.height / 3.6);
 
-        image(inventory4, 652, 70, inventory3.width / 4.2, inventory3.height / 4.2);
+        image(inventory1, 300, 65, inventory1.width / 4, inventory1.height / 4);
+
+        image(inventory2, 478, 65 + 4, inventory2.width / 3.6, inventory2.height / 3.6);
+
+        image(inventory4, 652, 65, inventory3.width / 4.2, inventory3.height / 4.2);
 
 
 
