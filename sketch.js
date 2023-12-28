@@ -3,7 +3,7 @@ let xpos = 460;
 const message = 'Inventory Central';
 const messageX = xpos;
 const messageY = 370;
-const message2 = 'Wire Charts and Diagrams';
+const message2 = 'Wirecharts and Diagrams';
 const message2X = xpos;
 const message2Y = 410;
 const message3 = 'Electrical Drawing';
@@ -22,7 +22,7 @@ const message7 = '';
 const message7X = xpos;
 const message7Y = 610;
 
-const messageBP = 'Backplate Wire Chart';
+const messageBP = 'Backplate Wirechart';
 let BPpic;
 const messageBPX = 14;
 const messageBPY = 183;
@@ -46,6 +46,11 @@ const messageBPLayout = "Backplate Lazercutter info";
 let BPLayout;
 const messageBPLayoutX = 14;
 const messageBPLayoutY = 153;
+
+const messageBOMLayout = "View Full BOM";
+let BOMLayout;
+const messageBOMLayoutX = 14;
+const messageBOMLayoutY = 153;
 
 
 const NUM_IMGS = 5,
@@ -239,9 +244,24 @@ function draw() {
         fill(198, 0, 0);
         text('Inventory Central', 14, 120);
 
+        textSize(16);
+        textFont(font);
+        fill('grey');
+        if (isMouseInsideText(messageBOMLayout, messageBOMLayoutX, messageBOMLayoutY)) {
+            cursor(HAND);
+            fill(0, 200, 255);
+            //stroke(0, 200, 255);
+        } else {
+            cursor(ARROW);
+            fill('grey');
+            //  stroke(255);
+        }
+        text(messageBOMLayout, messageBOMLayoutX, messageBOMLayoutY);
+
         let picpos = 65;  //y
-        let headpos = picpos + 218;
-        let selpos = picpos + 230;
+        let headpos = picpos + 200;
+        let selpos = picpos + 210;
+        let checkpos = picpos + 190;
 
         textSize(20);
         fill(198, 0, 0);
@@ -251,16 +271,13 @@ function draw() {
         text('Cables', 885, headpos);
 
         image(inventory1, 300, picpos, inventory1.width / 4, inventory1.height / 4);
-
         image(inventory2, 478, picpos + 4, inventory2.width / 3.6, inventory2.height / 3.6);
-
         image(inventory3, 652, picpos, inventory3.width / 4.2, inventory3.height / 4.2);
-
         image(inventory4, 845, picpos, inventory4.width / 3.1, inventory4.height / 3.1);
 
-         image(checkmark, 340, picpos + 210, checkmark.width / 5, checkmark.height / 5);
-         image(checkmark, 699, picpos + 210, checkmark.width / 5, checkmark.height / 5);
-    
+        image(checkmark, 340, checkpos, checkmark.width / 5, checkmark.height / 5);
+        image(checkmark, 699, checkpos, checkmark.width / 5, checkmark.height / 5);
+
 
 
         //textSize(18);
@@ -307,8 +324,8 @@ function draw() {
 
         mySelect4.option('(2)Missing Items', 'red');
         mySelect4.option('1683002', 'green');
-        mySelect4.option('1415943', 'blue');      
-       
+        mySelect4.option('1415943', 'blue');
+
 
         fill('blue');
         textSize(16);
@@ -317,7 +334,7 @@ function draw() {
 
 
         btmX = 14;
-        btmY = 180
+        btmY = 200
         text(btm, btmX, btmY);
 
     }
@@ -329,8 +346,8 @@ function draw() {
         textSize(16);
         textFont(font);
         fill('grey');
-        text('Door Wire Chart', 315, 270);
-        text('Backplates', 510, 270);
+        text('Door Wirechart', 322, 270);
+        text('Backplate Wirechart', 483, 270);
         text('Cable Layout', 685, 270);
         // image(inventory3, 845, 70, inventory4.width / 3.1, inventory4.height / 3.1);
         push();
@@ -342,15 +359,9 @@ function draw() {
         // image(Bulkhead, 820, 170, Bulkhead.width / 3, Bulkhead.height / 3);
         pop();
 
-
         image(inventory1, 300, 65, inventory1.width / 4, inventory1.height / 4);
-
         image(inventory2, 478, 65 + 4, inventory2.width / 3.6, inventory2.height / 3.6);
-
         image(inventory4, 652, 65, inventory3.width / 4.2, inventory3.height / 4.2);
-
-
-
 
         textSize(30);
         fill(198, 0, 0);
@@ -570,6 +581,13 @@ function mouseClicked() {
     //     inventory = true;
     //     menu = false;
     // }
+    if (inventory) {
+
+        if (isMouseInsideText(messageBOMLayout, messageBOMLayoutX, messageBOMLayoutY)) {
+            window.open('data/QtekBOM.pdf', '_blank');
+        }
+
+    }
     if (wirecharts) {
         if (isMouseInsideText(messageBP, messageBPX, messageBPY)) {
             window.open('data/QTEKbackplateWirechart.pdf', '_blank');
