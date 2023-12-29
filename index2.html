@@ -13,7 +13,9 @@
     <br>
     <table id="tableData"></table>
     <script>
+
         let btn = document.querySelector('#loadExcel');
+        let away = [];
         btn.addEventListener('click', () => {
             // FETCH EXCEL FILE FROM A URL OR LOCAL URL
             fetch('/employees_data.xlsx')
@@ -31,7 +33,7 @@
                         index++;
                     });
                 });
-
+                
             function generateTableHead(table, data) {
                 let thead = table.createTHead();
                 let row = thead.insertRow();

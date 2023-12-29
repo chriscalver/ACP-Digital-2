@@ -21,40 +21,33 @@ const message6Y = 570;
 const message7 = '';
 const message7X = xpos;
 const message7Y = 610;
-
 const messageBP = 'Backplate Wirechart';
 let BPpic;
 const messageBPX = 14;
 const messageBPY = 183;
-
 const messageDoor = 'Door Wire Chart';
 let Doorpic;
 const messageDoorX = 14;
 const messageDoorY = 153;
-
 const messageBulkhead = 'Cable Layout';
 let Bulkhead;
 const messageBulkheadX = 14;
 const messageBulkheadY = 213;
-
 const messageTerminal = "View Terminal Spreadsheet";
 let Terminal;
 const messageTerminalX = 14;
 const messageTerminalY = 153;
-
 const messageBPLayout = "Backplate Lazercutter info";
 let BPLayout;
 const messageBPLayoutX = 14;
 const messageBPLayoutY = 153;
-
 const messageBOMLayout = "BOM and Inventory PDF";
 let BOMLayout;
 const messageBOMLayoutX = 14;
 const messageBOMLayoutY = 153;
-
-
 const NUM_IMGS = 5,
     imgs = [];
+
 
 let myArray = [];
 let currentImg = 0;
@@ -85,7 +78,7 @@ let mySelect3;
 let mySelect4;
 let canvas;
 let indent = 150;
-
+let test;
 
 function preload() {
     qteklogo = loadImage('pics/QTEK.gif');
@@ -98,19 +91,35 @@ function preload() {
     // }
     // wirechartCVS = loadTable("data/wirechart.csv", "csv", "header");
     // console.log("PPPPPPPPPP" + wirechartCVS);
+
+
+
+    
+
+
+
+    fetch('data/QtekBOM.xlsx')
+    .then(response => response.blob())
+    .then(blob => readXlsxFile(blob))
+    .then((rows) => {
+        //   console.log(rows);
+        //     // LOOP THROUGH ROWS
+        append(myArray, rows);
+     //  myArray = myArray;
+    // test = myArray[0][2][3];
+      //  console.log(myArray[0][2][3]);     // 0 is the blob  2 is the row 3 is the column   
+         test = myArray[0][2][3];  
+      //   console.log(test); 
+    });
 }
-
-function setup() {
-
-   
-   
-    console.log(windowWidth);
-
+function setup() {     
+    // console.log(windowWidth);
+//    console.log(myArray[0][2][3]);  
+// console.log(test);     // 0 is the blob  2 is the row 3 is the column 
+//    console.log(myArray.myArray[0][2][3]);      
     if (windowWidth >= 1600) {
         indent = 300;
-
     }
-
     canvas = createCanvas(windowWidth, windowHeight);
     canvas.position(indent, 0)
     frameRate(15);
@@ -122,7 +131,6 @@ function setup() {
     BPpic = loadImage('pics/backplate.jpg');
     Doorpic = loadImage('pics/door.jpg');
     Bulkhead = loadImage('pics/bulkhead3.jpg');
-
     checkmark = loadImage('pics/checkmark.png');
     terminalblock = loadImage('pics/terminalblock.jpg');
     terminalblock2 = loadImage('pics/terminalblock2.jpg');
@@ -133,25 +141,34 @@ function setup() {
     inventory5 = loadImage('pics/etc.jpg');
     wirechart1 = loadImage('pics/bulkhead5.jpg');
 
-    fetch('data/QtekBOM.xlsx')
-        .then(response => response.blob())
-        .then(blob => readXlsxFile(blob))
-        .then((rows) => {
-            //   console.log(rows);
-            //     // LOOP THROUGH ROWS
-            append(myArray, rows);
-            console.log(myArray);     // 0 is the blob  2 is the row 3 is the column            
-        });
-    // Doorpic.mouseClicked(window.open('http://chriscalver.com'));
-}
 
+
+    // fetch('data/QtekBOM.xlsx')
+    //     .then(response => response.blob())
+    //     .then(blob => readXlsxFile(blob))
+    //     .then((rows) => {
+    //         //   console.log(rows);
+    //         //     // LOOP THROUGH ROWS
+    //         append(myArray, rows);
+            
+    //     });
+    //     console.log(myArray);     // 0 is the blob  2 is the row 3 is the column            
+
+    //     console.log(myArray[][0][3]);     // 0 is the blob  2 is the row 3 is the column            
+
+    // Doorpic.mouseClicked(window.open('http://chriscalver.com'));
+
+    
+
+  //console.log(myArray[0][2][3]);     // 0 is the blob  2 is the row 3 is the column            
+ //   console.log(myArray);     // 0 is the blob  2 is the row 3 is the column   
+}
 function draw() {
     background('white');
+    // console.log(test); 
     //let rowCount = wirechartCVS.getRowCount();
     // console.log(rowCount);
     // console.log("*******" + wirechartCVS.get(3, "Color"));   
-
-
     if (menu) {
         removeElements();
         let location = 285;
@@ -258,9 +275,12 @@ function draw() {
         // }
         // text(message7, message7X, message7Y);       
     }
-
+   
     if (inventory) {
         //removeElements();
+        
+      //  console.log(test); 
+        console.log(myArray[0][2][3]); 
         push();
         imageMode(CENTER);
         image(qteklogo, 80, 50, qteklogo.width / 2, qteklogo.height / 2);
@@ -268,7 +288,6 @@ function draw() {
         textSize(30);
         fill(198, 0, 0);
         text('Inventory Central', 14, 120);
-
         textSize(16);
         textFont(font);
         fill('grey');
@@ -282,12 +301,10 @@ function draw() {
             //  stroke(255);
         }
         text(messageBOMLayout, messageBOMLayoutX, messageBOMLayoutY);
-
         let picpos = 65;  //y
         let headpos = picpos + 200;
         let selpos = picpos + 210;
         let checkpos = picpos + 190;
-
         textSize(20);
         fill(198, 0, 0);
         text('Enclosures', 327, headpos);
@@ -295,17 +312,13 @@ function draw() {
         text('Operator STN', 676, headpos);
         text('Cables', 885, headpos);
         text('Etc', 1060, headpos);
-
         image(inventory1, 300, picpos, inventory1.width / 4, inventory1.height / 4);
         image(inventory2, 478, picpos + 4, inventory2.width / 3.6, inventory2.height / 3.6);
         image(inventory3, 652, picpos, inventory3.width / 4.2, inventory3.height / 4.2);
         image(inventory4, 845, picpos, inventory4.width / 3.1, inventory4.height / 3.1);
         image(inventory5, 1020, picpos, inventory5.width / 6, inventory5.height / 6);
-
         image(checkmark, 340, checkpos, checkmark.width / 5, checkmark.height / 5);
         image(checkmark, 699, checkpos, checkmark.width / 5, checkmark.height / 5);
-
-
         textSize(16);
         textFont(font);
         fill('grey');
@@ -313,13 +326,10 @@ function draw() {
         text('Wire labels - Backplate', 1022, headpos + 45);
         text('Wire labels - OP STN', 1022, headpos + 65);
         text('Wire labels - Door', 1022, headpos + 85);
-        
         indent = 0;
         if (windowWidth >= 1600) {
-            indent = 300/2;
-    
+            indent = 300/2;    
         }
-
         //textSize(18);
         // mySelect1 = createSelect();
         // mySelect1.position(473, selpos);
@@ -328,7 +338,6 @@ function draw() {
         // mySelect1.option('three', 'blue');
         // mySelect1.option('four', 'yellow');
         // mySelect1.selected('Missing Items');
-
         mySelect2 = createSelect();
         mySelect2.position(632 + indent, selpos);
         mySelect2.style('font-size', '10px');
@@ -343,9 +352,7 @@ function draw() {
         mySelect2.option('15A breaker', 'pink');
         mySelect2.option('Contactor1', 'black');
         mySelect2.option('Contactor2', 'orange');
-
         // mySelect2.selected('(6)Missing Items');
-
         // mySelect3 = createSelect();
         // mySelect3.position(833, selpos);
         // mySelect3.option('Missing Items', 'red');
@@ -353,7 +360,6 @@ function draw() {
         // mySelect3.option('three', 'blue');
         // mySelect3.option('four', 'yellow');
         // mySelect3.selected('Missing Items');
-
         mySelect4 = createSelect();
         mySelect4.position(998 + indent, selpos);
         mySelect4.style('background-color', 'white');
@@ -361,25 +367,17 @@ function draw() {
         mySelect4.style('width', '120px');
         mySelect4.style('font-size', '10px');
         //   mySelect4.style('padding', '0.2em');
-
         mySelect4.option('(2)Missing Items', 'red');
         mySelect4.option('1683002', 'green');
         mySelect4.option('1415943', 'blue');
-
-
         fill('blue');
         textSize(16);
         text('Good to Go!', 335, headpos + 75);
         text('Good to Go!', 694, headpos + 75);
-
-
         btmX = 14;
         btmY = 200
         text(btm, btmX, btmY);
-
     }
-
-
 
     if (wirecharts) {
         removeElements();
@@ -398,11 +396,9 @@ function draw() {
         // image(BPpic, 550, 170, BPpic.width / 3.8, BPpic.height / 3.8);
         // image(Bulkhead, 820, 170, Bulkhead.width / 3, Bulkhead.height / 3);
         pop();
-
         image(inventory1, 300, 65, inventory1.width / 4, inventory1.height / 4);
         image(inventory2, 478, 65 + 4, inventory2.width / 3.6, inventory2.height / 3.6);
         image(wirechart1, 652, 65, inventory3.width / 4.2, inventory3.height / 4.2);
-
         textSize(30);
         fill(198, 0, 0);
         text('Wirecharts', 14, 120);
@@ -426,7 +422,6 @@ function draw() {
             //  stroke(255);
         }
         text(messageBP, messageBPX, messageBPY);
-
         if (isMouseInsideText(messageDoor, messageDoorX, messageDoorY)) {
             cursor(HAND);
             fill(0, 200, 255);
@@ -449,7 +444,6 @@ function draw() {
         text(messageBulkhead, messageBulkheadX, messageBulkheadY);
         // image(imgs[currentImg], 20, 20, imgs[currentImg].width / 4, imgs[currentImg].height / 4);
     }
-
     if (pictures) {
         image(imgs[currentImg], 20, 20, imgs[currentImg].width / 4, imgs[currentImg].height / 4);
         push();
@@ -470,7 +464,6 @@ function draw() {
         backbackcounter++;
         //console.log(backbackcounter);
     }
-
     if (TBlayout) {
         push();
         imageMode(CENTER);
@@ -487,7 +480,6 @@ function draw() {
         btmX = 14;
         btmY = 210
         text(btm, btmX, btmY);
-
         //text(messageTerminal, messageTerminalX, messageTerminalY);
         if (isMouseInsideText(messageTerminal, messageTerminalX, messageTerminalY)) {
             cursor(HAND);
@@ -499,12 +491,8 @@ function draw() {
             //  stroke(255);
         }
         text(messageTerminal, messageTerminalX, messageTerminalY);
-
-
         image(terminalblock2, 370, 350, terminalblock2.width / 1.5, terminalblock2.height / 1.5);
-
         image(terminalblock, 380, 50, terminalblock.width / 2.5, terminalblock.height / 2.5);
-
     }
     if (cableLayout) {
         push();
@@ -520,7 +508,6 @@ function draw() {
         btmY = 150
         text(btm, btmX, btmY);
     }
-
     if (BPlayout) {
         push();
         imageMode(CENTER);
@@ -536,7 +523,6 @@ function draw() {
         btmX = 14;
         btmY = 210
         text(btm, btmX, btmY);
-
         if (isMouseInsideText(messageBPLayout, messageBPLayoutX, messageBPLayoutY)) {
             cursor(HAND);
             fill(0, 200, 255);
@@ -547,13 +533,7 @@ function draw() {
             //  stroke(255);
         }
         text(messageBPLayout, messageBPLayoutX, messageBPLayoutY);
-
-
-
     }
-
-
-
 }
 // end of draw
 var setupButtons = _ => {
@@ -622,11 +602,9 @@ function mouseClicked() {
     //     menu = false;
     // }
     if (inventory) {
-
         if (isMouseInsideText(messageBOMLayout, messageBOMLayoutX, messageBOMLayoutY)) {
             window.open('data/QtekBOM.pdf', '_blank');
         }
-
     }
     if (wirecharts) {
         if (isMouseInsideText(messageBP, messageBPX, messageBPY)) {
@@ -638,8 +616,8 @@ function mouseClicked() {
         if (isMouseInsideText(messageBulkhead, messageBulkheadX, messageBulkheadY)) {
             window.open('data/QTEKbulkheadCablechart.pdf', '_blank');
         }
-        console.log("X " + mouseX);
-        console.log("Y " + mouseY);
+        // console.log("X " + mouseX);
+        // console.log("Y " + mouseY);
         if (mouseX > 300 && mouseX < 430 && mouseY > 70 && mouseY < 275) {
             window.open('data/QTEKdoorWirechart.pdf', '_blank');
         }
@@ -654,14 +632,10 @@ function mouseClicked() {
         if (isMouseInsideText(messageTerminal, messageTerminalX, messageTerminalY)) {
             window.open('data/QTEKbackplateWirechart.pdf', '_blank');
         }
-
     }
-
     if (BPLayout) {
         window.open('data/QTEKbackplateWirechart.pdf', '_blank');
-
     }
-
 }
 function isMouseInsideText(message, messageX, messageY) {
     const messageWidth = textWidth(message);
@@ -689,8 +663,8 @@ class Count {
         }
     }
     counter() {
-        if (this.s < 24) {
-            this.s = this.s + 4
+        if (this.s < 37) {
+            this.s = this.s + 1
             //this.p.html(this.s)
         }
     }
