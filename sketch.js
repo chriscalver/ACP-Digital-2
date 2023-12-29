@@ -41,7 +41,7 @@ const messageBPLayout = "Backplate Lazercutter info";
 let BPLayout;
 const messageBPLayoutX = 14;
 const messageBPLayoutY = 153;
-const messageBOMLayout = "BOM and Inventory PDF";
+const messageBOMLayout = "Full BOM and Inventory";
 let BOMLayout;
 const messageBOMLayoutX = 14;
 const messageBOMLayoutY = 153;
@@ -50,6 +50,8 @@ const NUM_IMGS = 5,
 
 
 let myArray = [];
+let mynewArray = [];
+
 let currentImg = 0;
 let backbackcounter = 0;
 let counter;
@@ -76,6 +78,7 @@ let mySelect1;
 let mySelect2;
 let mySelect3;
 let mySelect4;
+let mySelect5;
 let canvas;
 let indent = 150;
 let test;
@@ -94,29 +97,96 @@ function preload() {
 
 
 
-    
-
-
 
     fetch('data/QtekBOM.xlsx')
-    .then(response => response.blob())
-    .then(blob => readXlsxFile(blob))
-    .then((rows) => {
-        //   console.log(rows);
-        //     // LOOP THROUGH ROWS
-        append(myArray, rows);
-     //  myArray = myArray;
-    // test = myArray[0][2][3];
-      //  console.log(myArray[0][2][3]);     // 0 is the blob  2 is the row 3 is the column   
-         test = myArray[0][2][3];  
-      //   console.log(test); 
-    });
+        .then(response => response.blob())
+        .then(blob => readXlsxFile(blob))
+        .then((rows) => {
+            //   console.log(rows);
+            //     // LOOP THROUGH ROWS
+            append(myArray, rows);
+
+
+            // if (rows.) {
+            //     append(mynewArray, rows);   
+            // }
+
+            //  myArray = myArray;
+            // test = myArray[0][2][3];
+            //  console.log(myArray[0][2][3]);     // 0 is the blob  2 is the row 3 is the column   
+            test = myArray[0][2][3];
+            console.log(test);
+
+
+
+
+            var object = myArray;
+            let i = 2;
+
+            console.log(object[0].length);
+
+
+            while (i < object[0].length) {
+                // console.log(object[0][0][i]);    //pull up column names
+                //  console.log(object[0][i][2]);    //pull up Location column 
+                if (object[0][i][2] === "etc") {
+                    append(mynewArray, object[0][i]);
+                    //console.log("success");
+                    // console.log(mynewArray);
+                }
+
+                i++;
+            }
+            console.log(mynewArray);
+
+
+
+            // var toFind = "etc";
+            // var filtered = object[0][2][3].filter(function (el) {
+            //     return el.Location === toFind;
+            // });
+            // console.log(filtered);
+
+            // var toFind = "etc";
+            // var filtered = object[0][2].filter(function (el) {
+            //     return el.Location === toFind;
+            // });
+            // console.log(filtered);
+        });
+
 }
-function setup() {     
+
+
+function setup() {
     // console.log(windowWidth);
-//    console.log(myArray[0][2][3]);  
-// console.log(test);     // 0 is the blob  2 is the row 3 is the column 
-//    console.log(myArray.myArray[0][2][3]);      
+
+
+
+    //  let i = 0;
+    //     while (i < object.length) {
+    //         console.log(object[i]);
+    //         i++;
+    //     }
+    //     var toFind = "etc";
+    //     var filtered = object.filter(function(el) {
+    //       return el.Location === toFind;
+    //     });
+    //console.log(object);
+    //console.log(object[0][0][0]);
+
+    //    console.log(filtered);
+
+    // let i = 0;
+
+    // while (i < object.length) {
+    //     console.log(i);
+    //     i++;
+    // }
+
+
+    //    console.log(myArray[0][2][3]);  
+    // console.log(test);     // 0 is the blob  2 is the row 3 is the column 
+    //    console.log(myArray.myArray[0][2][3]);      
     if (windowWidth >= 1600) {
         indent = 300;
     }
@@ -143,6 +213,7 @@ function setup() {
 
 
 
+
     // fetch('data/QtekBOM.xlsx')
     //     .then(response => response.blob())
     //     .then(blob => readXlsxFile(blob))
@@ -150,7 +221,7 @@ function setup() {
     //         //   console.log(rows);
     //         //     // LOOP THROUGH ROWS
     //         append(myArray, rows);
-            
+
     //     });
     //     console.log(myArray);     // 0 is the blob  2 is the row 3 is the column            
 
@@ -158,13 +229,14 @@ function setup() {
 
     // Doorpic.mouseClicked(window.open('http://chriscalver.com'));
 
-    
 
-  //console.log(myArray[0][2][3]);     // 0 is the blob  2 is the row 3 is the column            
- //   console.log(myArray);     // 0 is the blob  2 is the row 3 is the column   
+
+    //console.log(myArray[0][2][3]);     // 0 is the blob  2 is the row 3 is the column            
+    //   console.log(myArray);     // 0 is the blob  2 is the row 3 is the column   
 }
 function draw() {
     background('white');
+
     // console.log(test); 
     //let rowCount = wirechartCVS.getRowCount();
     // console.log(rowCount);
@@ -190,9 +262,13 @@ function draw() {
         fill(198, 0, 0);
         textSize(14);
         let txt = text('Progress: ' + sVal + '%', xlocation, location - 5);
+        let www = "hello";
+        //     let div = createDiv(test);
+        // div.position(25, 35);
         rect(xlocation, location, Progress, 9)
         stroke('black')
         noFill();
+
         rect(xlocation, location, 100, 9)
         if (floor == 100) {
             counter.reset();
@@ -275,12 +351,17 @@ function draw() {
         // }
         // text(message7, message7X, message7Y);       
     }
-   
+
     if (inventory) {
+
+
+
+
+
         //removeElements();
-        
-      //  console.log(test); 
-        console.log(myArray[0][2][3]); 
+        //   console.log(myArray[0].length);
+        //  console.log(test); 
+        //console.log(myArray[0][2][3]); 
         push();
         imageMode(CENTER);
         image(qteklogo, 80, 50, qteklogo.width / 2, qteklogo.height / 2);
@@ -322,13 +403,13 @@ function draw() {
         textSize(16);
         textFont(font);
         fill('grey');
-        text('Wire labels - Door', 1022, headpos + 25);
-        text('Wire labels - Backplate', 1022, headpos + 45);
-        text('Wire labels - OP STN', 1022, headpos + 65);
-        text('Wire labels - Door', 1022, headpos + 85);
+        // text('Wire labels - Door', 1022, headpos + 25);
+        // text('Wire labels - Backplate', 1022, headpos + 45);
+        // text('Wire labels - OP STN', 1022, headpos + 65);
+        // text('Wire labels - Door', 1022, headpos + 85);
         indent = 0;
         if (windowWidth >= 1600) {
-            indent = 300/2;    
+            indent = 300 / 2;
         }
         //textSize(18);
         // mySelect1 = createSelect();
@@ -370,6 +451,19 @@ function draw() {
         mySelect4.option('(2)Missing Items', 'red');
         mySelect4.option('1683002', 'green');
         mySelect4.option('1415943', 'blue');
+
+        mySelect5 = createSelect();
+        mySelect5.position(1172 + indent, selpos);
+        mySelect5.style('background-color', 'white');
+        mySelect5.style('border-radius', '3px');
+        mySelect5.style('width', '110px');
+        mySelect5.style('font-size', '10px');
+        //   mySelect5.style('padding', '0.2em');
+        mySelect5.option('(2)Missing Items', 'red');
+        mySelect5.option('1683002', 'green');
+        mySelect5.option('1415943', 'blue');
+
+
         fill('blue');
         textSize(16);
         text('Good to Go!', 335, headpos + 75);
