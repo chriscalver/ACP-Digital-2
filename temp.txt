@@ -48,13 +48,7 @@ const messageBOMLayoutY = 153;
 const NUM_IMGS = 5,
     imgs = [];
 let myArray = [];
-let enclosureArray = [];
-let backplateArray = [];
-let OPstationArray = [];
-let cablesArray = [];
-let etcArray = [];
-
-
+let mynewArray = [];
 let currentImg = 0;
 let backbackcounter = 0;
 let counter;
@@ -85,53 +79,60 @@ let test;
 function preload() {
     qteklogo = loadImage('pics/QTEK.gif');
     font = loadFont('oswald.ttf');
-    
+    //let images = 16;
+    // for (let i = 3; i < images; i++) {
+    //     path = 'pics/TestImages' + str(i) + '.jpg' // create a path to the image
+    //     loaded_image = loadImage(path)     // load the image from the path
+    //     imgs.push(loaded_image)             // add the loaded path to ims
+    // }  
     fetch('data/QtekBOM.xlsx')
         .then(response => response.blob())
         .then(blob => readXlsxFile(blob))
-        .then((rows) => {
+        .then((rows) => {           
             //     // LOOP THROUGH ROWS
-            append(myArray, rows);
-            //  console.log(myArray[0][2][3]);     // 0 is the blob  2 is the row 3 is the column   
-            // test = myArray[0][2][3];
-            // console.log(test);       //   shows that my array works
-            // console.log(myArray);      //   full array from xlxs
-           // var object = myArray;
+            append(myArray, rows);            
+             // console.log(myArray[0][2][1]);     // 0 is the blob  2 is the row 3 is the column   
+          //  test = myArray[0][2][3];
+            //console.log(test);       //   shows that my array works
+       
             let i = 0;     // skips header and space row
-            //  console.log(object[0].length);
-            //   console.log(object[0]);
-            while (i < myArray[0].length) {
-              // console.log(myArray[0][0][i]);    //pull up column names
-                // console.log(myArray[0][i][2]);    //pull up Location column 
-                if (myArray[0][i][2] === "enclosure") {      // 0 is the blob  i is the row 3 is the column   
-                    append(enclosureArray, myArray[0][i]);       //apends all of the row to the new array           
-                }
-                if (myArray[0][i][2] === "backplate") {      // 0 is the blob  i is the row 3 is the column   
-                    append(backplateArray, myArray[0][i]);       //apends all of the row to the new array           
-                }
+            //console.log(myArray[0].length);
 
-                if (myArray[0][i][2] === "op stn") {      // 0 is the blob  i is the row 3 is the column   
-                    append(OPstationArray, myArray[0][i]);       //apends all of the row to the new array           
-                }
-                if (myArray[0][i][2] === "cables") {      // 0 is the blob  i is the row 3 is the column   
-                    append(cablesArray, myArray[0][i]);       //apends all of the row to the new array           
-                }
+            //this code makes new array of enclusers only
+
+            while (i < myArray[0].length) {
+               //  console.log(myArray[0][0][i]);    //pull up column names
+                //  console.log(myArray[0][i][2]);    //pull up Location column 
                 if (myArray[0][i][2] === "etc") {      // 0 is the blob  i is the row 3 is the column   
-                    append(etcArray, myArray[0][i]);       //apends all of the row to the new array           
+                    append(mynewArray, myArray[0][i]);
+                    //console.log("success");
+                    // console.log(mynewArray);                    
                 }
-                i++;
-            }   
+                i++;            }
+           console.log(mynewArray.length);
+           console.log(mynewArray);
+          
+          
         });
-}
+       
+        // let div = createDiv(test);
+        // div.position(633,284);
+
+    }
+
 
 function setup() {
-   
+    // console.log(windowWidth);    
+    //console.log(mynewArray[0]);
+    //console.log(mynewArray[0]); 
+    console.log(mynewArray);
+    
     if (windowWidth >= 1600) {
         indent = 300;
     }
     canvas = createCanvas(windowWidth, windowHeight);
     canvas.position(indent, 0)
-    frameRate(15);
+    frameRate(15);    
     counter = new Count(0, 100)
     counter.start();
     BPpic = loadImage('pics/backplate.jpg');
@@ -147,13 +148,13 @@ function setup() {
     inventory3 = loadImage('pics/hmi.jpg');
     inventory4 = loadImage('pics/cables.jpg');
     inventory5 = loadImage('pics/etc.jpg');
-    wirechart1 = loadImage('pics/bulkhead5.jpg');
+    wirechart1 = loadImage('pics/bulkhead5.jpg');    
 }
 function draw() {
-    background('white');
-   // console.log(mynewArray[1]);
+    background('white');   
+    
     if (menu) {
-       
+        
         removeElements();
         let location = 285;
         let xlocation = 460;
@@ -161,17 +162,17 @@ function draw() {
         let Progress = map(sVal, 0, 100, 0, 100);
         textFont(font);
         fill('grey');
-        textSize(14);
+        textSize(14);        
         textSize(50);
         fill(198, 0, 0);
         text('ACP Digital Solutions', xpos, 130);
         textSize(16);
         fill('black');
         text('SUPERBOMBER #23456-01', xpos, 232);
-        text('Due date: 01-12-24', xpos, 255);
+        text('Due date: 01-12-24', xpos, 255);        
         fill(198, 0, 0);
         textSize(14);
-        let txt = text('Progress: ' + sVal + '%', xlocation, location - 5);
+        let txt = text('Progress: ' + sVal + '%', xlocation, location - 5);   
         rect(xlocation, location, Progress, 9)
         stroke('black')
         noFill();
@@ -259,15 +260,7 @@ function draw() {
     }
 
     if (inventory) {
-        //removeElements();    
-      //  console.log(mynewArray[1][2]);
-        // console.log(enclosureArray);
-        // console.log(backplateArray);        
-        // console.log(OPstationArray);
-        // console.log(cablesArray);
-        // console.log(etcArray);
-
-        
+        //removeElements();       
         push();
         imageMode(CENTER);
         image(qteklogo, 80, 50, qteklogo.width / 2, qteklogo.height / 2);
@@ -314,12 +307,12 @@ function draw() {
         textSize(16);
         textFont(font);
         fill('grey');
-
+      
         indent = 0;
         if (windowWidth >= 1600) {
             indent = 300 / 2;
         }
-
+        
         fill('blue');
         textSize(16);
         text('Good to Go', 335, headpos + 75);
@@ -328,7 +321,7 @@ function draw() {
         text('Missing Items', 500, headpos + 75);
         text('Missing Items', 869, headpos + 75);
         text('Missing Items', 1030, headpos + 75);
-
+      
         btmX = 14;
         btmY = 200
         text(btm, btmX, btmY);
@@ -346,7 +339,7 @@ function draw() {
         push();
         imageMode(CENTER);
         image(qteklogo, 80, 50, qteklogo.width / 2, qteklogo.height / 2);
-
+       
         pop();
         image(inventory1, 300, 65, inventory1.width / 4, inventory1.height / 4);
         image(inventory2, 478, 65 + 4, inventory2.width / 3.6, inventory2.height / 3.6);
@@ -358,7 +351,7 @@ function draw() {
         fill('grey');
         textSize(20);
         fill('blue');
-
+      
         textSize(16);
         btmX = 14;
         btmY = 270
