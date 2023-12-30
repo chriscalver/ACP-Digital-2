@@ -54,7 +54,6 @@ let OPstationArray = [];
 let cablesArray = [];
 let etcArray = [];
 
-
 let currentImg = 0;
 let backbackcounter = 0;
 let counter;
@@ -85,7 +84,7 @@ let test;
 function preload() {
     qteklogo = loadImage('pics/QTEK.gif');
     font = loadFont('oswald.ttf');
-    
+
     fetch('data/QtekBOM.xlsx')
         .then(response => response.blob())
         .then(blob => readXlsxFile(blob))
@@ -96,36 +95,36 @@ function preload() {
             // test = myArray[0][2][3];
             // console.log(test);       //   shows that my array works
             // console.log(myArray);      //   full array from xlxs
-           // var object = myArray;
+            // var object = myArray;
             let i = 0;     // skips header and space row
             //  console.log(object[0].length);
             //   console.log(object[0]);
             while (i < myArray[0].length) {
-              // console.log(myArray[0][0][i]);    //pull up column names
+                // console.log(myArray[0][0][i]);    //pull up column names
                 // console.log(myArray[0][i][2]);    //pull up Location column 
-                if (myArray[0][i][2] === "enclosure") {      // 0 is the blob  i is the row 3 is the column   
+                if (myArray[0][i][2] === "enclosure" && myArray[0][i][5] === false) {      // 0 is the blob  i is the row 3 is the column   
                     append(enclosureArray, myArray[0][i]);       //apends all of the row to the new array           
                 }
-                if (myArray[0][i][2] === "backplate") {      // 0 is the blob  i is the row 3 is the column   
+                if (myArray[0][i][2] === "backplate" && myArray[0][i][5] === false) {      // 0 is the blob  i is the row 3 is the column   
                     append(backplateArray, myArray[0][i]);       //apends all of the row to the new array           
                 }
 
-                if (myArray[0][i][2] === "op stn") {      // 0 is the blob  i is the row 3 is the column   
+                if (myArray[0][i][2] === "op stn" && myArray[0][i][5] === false) {      // 0 is the blob  i is the row 3 is the column   
                     append(OPstationArray, myArray[0][i]);       //apends all of the row to the new array           
                 }
-                if (myArray[0][i][2] === "cables") {      // 0 is the blob  i is the row 3 is the column   
+                if (myArray[0][i][2] === "cables" && myArray[0][i][5] === false) {      // 0 is the blob  i is the row 3 is the column   
                     append(cablesArray, myArray[0][i]);       //apends all of the row to the new array           
                 }
-                if (myArray[0][i][2] === "etc") {      // 0 is the blob  i is the row 3 is the column   
+                if (myArray[0][i][2] === "etc" && myArray[0][i][5] === false) {      // 0 is the blob  i is the row 3 is the column   
                     append(etcArray, myArray[0][i]);       //apends all of the row to the new array           
                 }
                 i++;
-            }   
+            }
         });
 }
 
 function setup() {
-   
+
     if (windowWidth >= 1600) {
         indent = 300;
     }
@@ -151,10 +150,11 @@ function setup() {
 }
 function draw() {
     background('white');
-   // console.log(mynewArray[1]);
+    // console.log(mynewArray[1]);
     if (menu) {
-       
+
         removeElements();
+        strokeWeight(0.2);
         let location = 285;
         let xlocation = 460;
         let sVal = counter.s;
@@ -259,15 +259,12 @@ function draw() {
     }
 
     if (inventory) {
-        //removeElements();    
-      //  console.log(mynewArray[1][2]);
-        // console.log(enclosureArray);
+        //  console.log(mynewArray[1][2]);
+        //  console.log(enclosureArray);
         // console.log(backplateArray);        
-        // console.log(OPstationArray);
+        //  console.log(OPstationArray);
         // console.log(cablesArray);
-        // console.log(etcArray);
-
-        
+        //console.log(etcArray);        
         push();
         imageMode(CENTER);
         image(qteklogo, 80, 50, qteklogo.width / 2, qteklogo.height / 2);
@@ -304,31 +301,99 @@ function draw() {
         image(inventory3, 652, picpos, inventory3.width / 4.2, inventory3.height / 4.2);
         image(inventory4, 845, picpos, inventory4.width / 3.1, inventory4.height / 3.1);
         image(inventory5, 1020, picpos, inventory5.width / 6, inventory5.height / 6);
-        image(checkmark, 340, checkpos, checkmark.width / 5, checkmark.height / 5);
-        image(checkmark, 699, checkpos, checkmark.width / 5, checkmark.height / 5);
-
-        image(xmark, 515, selpos, xmark.width, xmark.height);
-        image(xmark, 883, selpos, xmark.width, xmark.height);
-        image(xmark, 1047, selpos, xmark.width, xmark.height);
-
-        textSize(16);
-        textFont(font);
-        fill('grey');
+          
 
         indent = 0;
         if (windowWidth >= 1600) {
             indent = 300 / 2;
         }
 
+
+        
         fill('blue');
         textSize(16);
         text('Good to Go', 335, headpos + 75);
         text('Good to Go', 694, headpos + 75);
-
-        text('Missing Items', 500, headpos + 75);
+        text('Missing Items', 500, headpos + 75);    
         text('Missing Items', 869, headpos + 75);
         text('Missing Items', 1030, headpos + 75);
+        image(checkmark, 340, checkpos, checkmark.width / 5, checkmark.height / 5);
+        image(checkmark, 699, checkpos, checkmark.width / 5, checkmark.height / 5);
 
+        image(xmark, 515, selpos, xmark.width, xmark.height);
+        image(xmark, 883, selpos, xmark.width, xmark.height);
+        image(xmark, 1047, selpos, xmark.width, xmark.height);      
+
+
+        let j = 0;
+        let w = 0;
+        let p = 0;
+        let r = 0;
+        let t = 0;
+
+
+        let spacer = 20;
+        let limitter = 20;
+        textSize(14);
+        //textFont('arial');
+        fill('black');
+        while (r < enclosureArray.length) {
+            //   console.log(backplateArray.length);
+               let ttt = enclosureArray[r][1];            
+               text(ttt.substring(0, limitter), 310, headpos + 85 + spacer);
+               spacer = spacer + 20;
+               r++;
+   
+   
+           }
+           spacer = 20;
+
+        while (j < backplateArray.length) {
+         //   console.log(backplateArray.length);
+            let ttt = backplateArray[j][1];            
+            text(ttt.substring(0, limitter), 485, headpos + 85 + spacer);
+            spacer = spacer + 20;
+            j++;
+        }
+        spacer = 20;
+        while (t < OPstationArray.length) {
+            //   console.log(backplateArray.length);
+               let ttt = OPstationArray[t][1];            
+               text(ttt.substring(0, limitter), 665, headpos + 85 + spacer);
+               spacer = spacer + 20;
+               t++;
+   
+   
+           }
+           spacer = 20;
+           
+
+      //  console.log(cablesArray);   
+        while (w < cablesArray.length) {
+         //   console.log(cablesArray.length);
+            
+            let ttt = nfs(cablesArray[w][4]);
+           // let sss = 
+          // text(nfs(num1, 4, 2), 10, 30);
+           
+            text(ttt.substring(0, limitter), 869, headpos + 85 + spacer);
+            spacer = spacer + 20;
+            w++;
+
+        }
+        spacer = 20;
+        while (p < etcArray.length) {
+         //   console.log(etcArray.length);
+            let ttt = etcArray[p][1];
+            //textWrap(WORD);
+            text(ttt.substring(0, limitter), 1030, headpos + 85 + spacer);
+            spacer = spacer + 20;
+            p++;
+
+        }
+        
+        fill('blue');
+        textSize(16);
         btmX = 14;
         btmY = 200
         text(btm, btmX, btmY);
@@ -356,7 +421,7 @@ function draw() {
         text('Wirecharts', 14, 120);
         textFont(font);
         fill('grey');
-        textSize(20);
+        // textSize(20);
         fill('blue');
 
         textSize(16);
