@@ -18,7 +18,7 @@
         let away = [];
         btn.addEventListener('click', () => {
             // FETCH EXCEL FILE FROM A URL OR LOCAL URL
-            fetch('/employees_data.xlsx')
+            fetch('data/QtekBOM.xlsx')
                 .then(response => response.blob())
                 .then(blob => readXlsxFile(blob))
                 .then((rows) => {

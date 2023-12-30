@@ -47,11 +47,8 @@ const messageBOMLayoutX = 14;
 const messageBOMLayoutY = 153;
 const NUM_IMGS = 5,
     imgs = [];
-
-
 let myArray = [];
 let mynewArray = [];
-
 let currentImg = 0;
 let backbackcounter = 0;
 let counter;
@@ -65,7 +62,6 @@ let inventory = false;
 let btm = "Back to Main";
 let btmX = 814;
 let btmY = 150;
-let wirechartCVS;
 let terminalblock;
 let terminalblock2;
 let checkmark;
@@ -91,111 +87,46 @@ function preload() {
     //     path = 'pics/TestImages' + str(i) + '.jpg' // create a path to the image
     //     loaded_image = loadImage(path)     // load the image from the path
     //     imgs.push(loaded_image)             // add the loaded path to ims
-    // }
-    // wirechartCVS = loadTable("data/wirechart.csv", "csv", "header");
-    // console.log("PPPPPPPPPP" + wirechartCVS);
-
-
-
-
+    // }  
     fetch('data/QtekBOM.xlsx')
         .then(response => response.blob())
         .then(blob => readXlsxFile(blob))
-        .then((rows) => {
-            //   console.log(rows);
+        .then((rows) => {           
             //     // LOOP THROUGH ROWS
-            append(myArray, rows);
-
-
-            // if (rows.) {
-            //     append(mynewArray, rows);   
-            // }
-
-            //  myArray = myArray;
-            // test = myArray[0][2][3];
+            append(myArray, rows);            
             //  console.log(myArray[0][2][3]);     // 0 is the blob  2 is the row 3 is the column   
             test = myArray[0][2][3];
-            console.log(test);
-
-
-
-
+            //console.log(test);
             var object = myArray;
-            let i = 2;
-
-            console.log(object[0].length);
-
-
+            let i = 2;     // skips header and space row
+            //console.log(object[0].length);
             while (i < object[0].length) {
                 // console.log(object[0][0][i]);    //pull up column names
                 //  console.log(object[0][i][2]);    //pull up Location column 
-                if (object[0][i][2] === "etc") {
+                if (object[0][i][2] === "etc") {      // 0 is the blob  i is the row 3 is the column   
                     append(mynewArray, object[0][i]);
                     //console.log("success");
                     // console.log(mynewArray);
+                    
                 }
-
                 i++;
             }
-            console.log(mynewArray);
-
-
-
-            // var toFind = "etc";
-            // var filtered = object[0][2][3].filter(function (el) {
-            //     return el.Location === toFind;
-            // });
-            // console.log(filtered);
-
-            // var toFind = "etc";
-            // var filtered = object[0][2].filter(function (el) {
-            //     return el.Location === toFind;
-            // });
-            // console.log(filtered);
+           // console.log(mynewArray.length);
+           console.log(mynewArray); 
         });
-
 }
 
-
 function setup() {
-    // console.log(windowWidth);
+    // console.log(windowWidth);    
+    // console.log(mynewArray[0]);
+    //console.log(mynewArray[0]); 
 
-
-
-    //  let i = 0;
-    //     while (i < object.length) {
-    //         console.log(object[i]);
-    //         i++;
-    //     }
-    //     var toFind = "etc";
-    //     var filtered = object.filter(function(el) {
-    //       return el.Location === toFind;
-    //     });
-    //console.log(object);
-    //console.log(object[0][0][0]);
-
-    //    console.log(filtered);
-
-    // let i = 0;
-
-    // while (i < object.length) {
-    //     console.log(i);
-    //     i++;
-    // }
-
-
-    //    console.log(myArray[0][2][3]);  
-    // console.log(test);     // 0 is the blob  2 is the row 3 is the column 
-    //    console.log(myArray.myArray[0][2][3]);      
     if (windowWidth >= 1600) {
         indent = 300;
     }
     canvas = createCanvas(windowWidth, windowHeight);
     canvas.position(indent, 0)
-    frameRate(15);
-    //setupButtons();
-    // console.log("pictures" + " " + pictures);
-    //  console.log("menu " + " " + menu);
+    frameRate(15);    
     counter = new Count(0, 100)
     counter.start();
     BPpic = loadImage('pics/backplate.jpg');
@@ -209,39 +140,13 @@ function setup() {
     inventory3 = loadImage('pics/hmi.jpg');
     inventory4 = loadImage('pics/cables.jpg');
     inventory5 = loadImage('pics/etc.jpg');
-    wirechart1 = loadImage('pics/bulkhead5.jpg');
-
-
-
-
-    // fetch('data/QtekBOM.xlsx')
-    //     .then(response => response.blob())
-    //     .then(blob => readXlsxFile(blob))
-    //     .then((rows) => {
-    //         //   console.log(rows);
-    //         //     // LOOP THROUGH ROWS
-    //         append(myArray, rows);
-
-    //     });
-    //     console.log(myArray);     // 0 is the blob  2 is the row 3 is the column            
-
-    //     console.log(myArray[][0][3]);     // 0 is the blob  2 is the row 3 is the column            
-
-    // Doorpic.mouseClicked(window.open('http://chriscalver.com'));
-
-
-
-    //console.log(myArray[0][2][3]);     // 0 is the blob  2 is the row 3 is the column            
-    //   console.log(myArray);     // 0 is the blob  2 is the row 3 is the column   
+    wirechart1 = loadImage('pics/bulkhead5.jpg');    
 }
 function draw() {
-    background('white');
-
-    // console.log(test); 
-    //let rowCount = wirechartCVS.getRowCount();
-    // console.log(rowCount);
-    // console.log("*******" + wirechartCVS.get(3, "Color"));   
+    background('white');   
+    
     if (menu) {
+        
         removeElements();
         let location = 285;
         let xlocation = 460;
@@ -249,26 +154,27 @@ function draw() {
         let Progress = map(sVal, 0, 100, 0, 100);
         textFont(font);
         fill('grey');
-        textSize(14);
-        // text('ACP Digital Solutions', xpos, height - 30);
+        textSize(14);        
         textSize(50);
         fill(198, 0, 0);
         text('ACP Digital Solutions', xpos, 130);
         textSize(16);
         fill('black');
         text('SUPERBOMBER #23456-01', xpos, 232);
-        text('Due date: 01-12-24', xpos, 255);
-        //  image(qteklogo, 0, 0, qteklogo.width /2,  qteklogo.height /2);
+        text('Due date: 01-12-24', xpos, 255);        
         fill(198, 0, 0);
         textSize(14);
         let txt = text('Progress: ' + sVal + '%', xlocation, location - 5);
-        let www = "hello";
-        //     let div = createDiv(test);
-        // div.position(25, 35);
+        
+
+
+        let div = createDiv(test);
+        div.position(225, 35);
+
+        
         rect(xlocation, location, Progress, 9)
         stroke('black')
         noFill();
-
         rect(xlocation, location, 100, 9)
         if (floor == 100) {
             counter.reset();
@@ -353,15 +259,7 @@ function draw() {
     }
 
     if (inventory) {
-
-
-
-
-
-        //removeElements();
-        //   console.log(myArray[0].length);
-        //  console.log(test); 
-        //console.log(myArray[0][2][3]); 
+        //removeElements();       
         push();
         imageMode(CENTER);
         image(qteklogo, 80, 50, qteklogo.width / 2, qteklogo.height / 2);
@@ -462,8 +360,6 @@ function draw() {
         mySelect5.option('(2)Missing Items', 'red');
         mySelect5.option('1683002', 'green');
         mySelect5.option('1415943', 'blue');
-
-
         fill('blue');
         textSize(16);
         text('Good to Go!', 335, headpos + 75);
@@ -738,13 +634,6 @@ function isMouseInsideText(message, messageX, messageY) {
     return mouseX > messageX && mouseX < messageX + messageWidth &&
         mouseY > messageTop && mouseY < messageBottom;
 }
-// function isMouseInsideText(message, messageX, messageY) {
-//     const messageWidth = textWidth(message);
-//     const messageTop = messageY - textAscent();
-//     const messageBottom = messageY + textDescent();
-//     return mouseX > messageX && mouseX < messageX + messageWidth &&
-//         mouseY > messageTop && mouseY < messageBottom;
-// }
 class Count {
     constructor(s, w) {
         this.s = s
