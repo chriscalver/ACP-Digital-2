@@ -128,7 +128,7 @@ function setup() {
     if (windowWidth >= 1600) {
         indent = 300;
     }
-    canvas = createCanvas(windowWidth, windowHeight);
+    canvas = createCanvas(windowWidth, windowHeight +350);
     canvas.position(indent, 0)
     frameRate(15);
     counter = new Count(0, 100)
@@ -258,13 +258,8 @@ function draw() {
         // text(message7, message7X, message7Y);       
     }
 
-    if (inventory) {
-        //  console.log(mynewArray[1][2]);
-        //  console.log(enclosureArray);
-        // console.log(backplateArray);        
-        //  console.log(OPstationArray);
-        // console.log(cablesArray);
-        //console.log(etcArray);        
+    if (inventory) {/////////////////////////////////////////////inventory
+
         push();
         imageMode(CENTER);
         image(qteklogo, 80, 50, qteklogo.width / 2, qteklogo.height / 2);
@@ -294,104 +289,119 @@ function draw() {
         text('Enclosures', 327, headpos);
         text('Backplates', 503, headpos);
         text('Operator STN', 676, headpos);
-        text('Cables', 885, headpos);
-        text('Etc', 1060, headpos);
+        text('Cables', 882, headpos);
+        text('Etc', 1063, headpos);
         image(inventory1, 300, picpos, inventory1.width / 4, inventory1.height / 4);
         image(inventory2, 478, picpos + 4, inventory2.width / 3.6, inventory2.height / 3.6);
         image(inventory3, 652, picpos, inventory3.width / 4.2, inventory3.height / 4.2);
         image(inventory4, 845, picpos, inventory4.width / 3.1, inventory4.height / 3.1);
         image(inventory5, 1020, picpos, inventory5.width / 6, inventory5.height / 6);
-          
 
         indent = 0;
         if (windowWidth >= 1600) {
             indent = 300 / 2;
         }
-
-
-        
         fill('blue');
         textSize(16);
-        text('Good to Go', 335, headpos + 75);
-        text('Good to Go', 694, headpos + 75);
-        text('Missing Items', 500, headpos + 75);    
-        text('Missing Items', 869, headpos + 75);
-        text('Missing Items', 1030, headpos + 75);
-        image(checkmark, 340, checkpos, checkmark.width / 5, checkmark.height / 5);
-        image(checkmark, 699, checkpos, checkmark.width / 5, checkmark.height / 5);
 
-        image(xmark, 515, selpos, xmark.width, xmark.height);
-        image(xmark, 883, selpos, xmark.width, xmark.height);
-        image(xmark, 1047, selpos, xmark.width, xmark.height);      
+        // text('Good to Go', 694, headpos + 75);  //OPstation
 
+        // text('Missing Items', 869, headpos + 75);  //cables
+        // text('Missing Items', 1030, headpos + 75);  //etc
+
+        // image(checkmark, 699, checkpos, checkmark.width / 5, checkmark.height / 5);  //op
+        // image(xmark, 883, selpos, xmark.width, xmark.height);    //  cables
+        //   image(xmark, 1047, selpos, xmark.width, xmark.height);      //   etc
 
         let j = 0;
         let w = 0;
         let p = 0;
         let r = 0;
         let t = 0;
-
-
         let spacer = 20;
         let limitter = 20;
+
+        if (enclosureArray.length > 0) {
+            image(xmark, 340, selpos, xmark.width, xmark.height);
+            text('Missing Items', 323, headpos + 75);
+
+        } else {
+            text('Good to Go', 335, headpos + 75);
+            image(checkmark, 340, checkpos, checkmark.width / 5, checkmark.height / 5);
+        }
+
+
+        if (backplateArray.length > 0) {
+            image(xmark, 515, selpos, xmark.width, xmark.height);         //     bp           
+            text('Missing Items', 500, headpos + 75);    //bp
+        } else {
+            text('Good to Go', 509, headpos + 75);
+            image(checkmark, 515, checkpos, checkmark.width / 5, checkmark.height / 5);
+        }
+
+        if (OPstationArray.length > 0) {
+            image(xmark, 695, selpos, xmark.width, xmark.height);         //     bp           
+            text('Missing Items', 680, headpos + 75);    //bp
+        } else {
+            text('Good to Go', 692, headpos + 75);
+            image(checkmark, 698, checkpos, checkmark.width / 5, checkmark.height / 5);
+        }
+
+        if (cablesArray.length > 0) {
+            image(xmark, 883, selpos, xmark.width, xmark.height);         //     bp           
+            text('Missing Items', 869, headpos + 75);    //bp
+        } else {
+            text('Good to Go', 878, headpos + 75);
+            image(checkmark, 880, checkpos, checkmark.width / 5, checkmark.height / 5);
+        }
+
+        if (etcArray.length > 0) {
+            image(xmark, 1051, selpos, xmark.width, xmark.height);         //     bp           
+            text('Missing Items', 1037, headpos + 75);    //bp
+        } else {
+            text('Good to Go', 1043, headpos + 75);
+            image(checkmark, 1047, checkpos, checkmark.width / 5, checkmark.height / 5);
+        }
+
         textSize(14);
         //textFont('arial');
         fill('black');
         while (r < enclosureArray.length) {
-            //   console.log(backplateArray.length);
-               let ttt = enclosureArray[r][1];            
-               text(ttt.substring(0, limitter), 310, headpos + 85 + spacer);
-               spacer = spacer + 20;
-               r++;
-   
-   
-           }
-           spacer = 20;
-
+            let ttt = enclosureArray[r][1];
+            text(ttt.substring(0, limitter), 315, headpos + 85 + spacer);
+            spacer = spacer + 20;
+            r++;
+        }
+        spacer = 20;
         while (j < backplateArray.length) {
-         //   console.log(backplateArray.length);
-            let ttt = backplateArray[j][1];            
-            text(ttt.substring(0, limitter), 485, headpos + 85 + spacer);
+            let ttt = backplateArray[j][1];
+            text(ttt.substring(0, limitter), 492, headpos + 85 + spacer);
             spacer = spacer + 20;
             j++;
         }
         spacer = 20;
         while (t < OPstationArray.length) {
-            //   console.log(backplateArray.length);
-               let ttt = OPstationArray[t][1];            
-               text(ttt.substring(0, limitter), 665, headpos + 85 + spacer);
-               spacer = spacer + 20;
-               t++;
-   
-   
-           }
-           spacer = 20;
-           
-
-      //  console.log(cablesArray);   
+            let ttt = OPstationArray[t][1];
+            text(ttt.substring(0, limitter), 675, headpos + 85 + spacer);
+            spacer = spacer + 20;
+            t++;
+        }
+        spacer = 20;
         while (w < cablesArray.length) {
-         //   console.log(cablesArray.length);
-            
             let ttt = nfs(cablesArray[w][4]);
-           // let sss = 
-          // text(nfs(num1, 4, 2), 10, 30);
-           
-            text(ttt.substring(0, limitter), 869, headpos + 85 + spacer);
+            text(ttt.substring(0, limitter), 860, headpos + 85 + spacer);
             spacer = spacer + 20;
             w++;
-
         }
         spacer = 20;
         while (p < etcArray.length) {
-         //   console.log(etcArray.length);
             let ttt = etcArray[p][1];
             //textWrap(WORD);
-            text(ttt.substring(0, limitter), 1030, headpos + 85 + spacer);
+            text(ttt.substring(0, limitter), 1025, headpos + 85 + spacer);
             spacer = spacer + 20;
             p++;
-
         }
-        
+
         fill('blue');
         textSize(16);
         btmX = 14;
@@ -672,8 +682,8 @@ class Count {
         }
     }
     counter() {
-        if (this.s < 37) {
-            this.s = this.s + 1
+        if (this.s < 38) {
+            this.s = this.s + 4
             //this.p.html(this.s)
         }
     }
