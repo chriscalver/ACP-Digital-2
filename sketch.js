@@ -29,7 +29,7 @@ const messageDoor = 'Door Wire Chart';
 let Doorpic;
 const messageDoorX = 14;
 const messageDoorY = 153;
-const messageBulkhead = 'Cable Layout';
+const messageBulkhead = 'Cable Wirechart';
 let Bulkhead;
 const messageBulkheadX = 14;
 const messageBulkheadY = 213;
@@ -77,6 +77,10 @@ let inventory3;
 let inventory4;
 let inventory5;
 
+let contactor;
+let relay1;
+let safety1;
+
 let canvas;
 let indent = 150;
 let test;
@@ -91,14 +95,8 @@ function preload() {
         .then((rows) => {
             //     // LOOP THROUGH ROWS
             append(myArray, rows);
-            //  console.log(myArray[0][2][3]);     // 0 is the blob  2 is the row 3 is the column   
-            // test = myArray[0][2][3];
-            // console.log(test);       //   shows that my array works
-            // console.log(myArray);      //   full array from xlxs
-            // var object = myArray;
             let i = 0;     // skips header and space row
-            //  console.log(object[0].length);
-            //   console.log(object[0]);
+
             while (i < myArray[0].length) {
                 // console.log(myArray[0][0][i]);    //pull up column names
                 // console.log(myArray[0][i][2]);    //pull up Location column 
@@ -128,7 +126,7 @@ function setup() {
     if (windowWidth >= 1600) {
         indent = 300;
     }
-    canvas = createCanvas(windowWidth, windowHeight +350);
+    canvas = createCanvas(windowWidth, windowHeight + 350);
     canvas.position(indent, 0)
     frameRate(15);
     counter = new Count(0, 100)
@@ -147,14 +145,17 @@ function setup() {
     inventory4 = loadImage('pics/cables.jpg');
     inventory5 = loadImage('pics/etc.jpg');
     wirechart1 = loadImage('pics/bulkhead5.jpg');
+    contactor = loadImage('pics/contactors2.jpg');
+    relay1 = loadImage('pics/relay2.jpg');
+    safety1 = loadImage('pics/safety1.jpg');
+
 }
 function draw() {
     background('white');
     // console.log(mynewArray[1]);
     if (menu) {
-
         removeElements();
-        strokeWeight(0.2);
+        strokeWeight(0.3);
         let location = 285;
         let xlocation = 460;
         let sVal = counter.s;
@@ -258,8 +259,8 @@ function draw() {
         // text(message7, message7X, message7Y);       
     }
 
-    if (inventory) {/////////////////////////////////////////////inventory
-
+    if (inventory) {/////////////////////////////////////////////////////////////////////////////////////////inventory
+        removeElements();
         push();
         imageMode(CENTER);
         image(qteklogo, 80, 50, qteklogo.width / 2, qteklogo.height / 2);
@@ -304,15 +305,6 @@ function draw() {
         fill('blue');
         textSize(16);
 
-        // text('Good to Go', 694, headpos + 75);  //OPstation
-
-        // text('Missing Items', 869, headpos + 75);  //cables
-        // text('Missing Items', 1030, headpos + 75);  //etc
-
-        // image(checkmark, 699, checkpos, checkmark.width / 5, checkmark.height / 5);  //op
-        // image(xmark, 883, selpos, xmark.width, xmark.height);    //  cables
-        //   image(xmark, 1047, selpos, xmark.width, xmark.height);      //   etc
-
         let j = 0;
         let w = 0;
         let p = 0;
@@ -330,7 +322,6 @@ function draw() {
             image(checkmark, 340, checkpos, checkmark.width / 5, checkmark.height / 5);
         }
 
-
         if (backplateArray.length > 0) {
             image(xmark, 515, selpos, xmark.width, xmark.height);         //     bp           
             text('Missing Items', 500, headpos + 75);    //bp
@@ -338,7 +329,6 @@ function draw() {
             text('Good to Go', 509, headpos + 75);
             image(checkmark, 515, checkpos, checkmark.width / 5, checkmark.height / 5);
         }
-
         if (OPstationArray.length > 0) {
             image(xmark, 695, selpos, xmark.width, xmark.height);         //     bp           
             text('Missing Items', 680, headpos + 75);    //bp
@@ -346,7 +336,6 @@ function draw() {
             text('Good to Go', 692, headpos + 75);
             image(checkmark, 698, checkpos, checkmark.width / 5, checkmark.height / 5);
         }
-
         if (cablesArray.length > 0) {
             image(xmark, 883, selpos, xmark.width, xmark.height);         //     bp           
             text('Missing Items', 869, headpos + 75);    //bp
@@ -354,7 +343,6 @@ function draw() {
             text('Good to Go', 878, headpos + 75);
             image(checkmark, 880, checkpos, checkmark.width / 5, checkmark.height / 5);
         }
-
         if (etcArray.length > 0) {
             image(xmark, 1051, selpos, xmark.width, xmark.height);         //     bp           
             text('Missing Items', 1037, headpos + 75);    //bp
@@ -408,7 +396,7 @@ function draw() {
         btmY = 200
         text(btm, btmX, btmY);
     }
-
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////wirecharts
     if (wirecharts) {
         removeElements();
         textSize(16);
@@ -416,23 +404,35 @@ function draw() {
         fill('grey');
         text('Door Wirechart', 322, 270);
         text('Backplate Wirechart', 483, 270);
-        text('Cable Layout', 685, 270);
+        text('Cable Wirechart', 678, 270);
+        textSize(13);
+        text('Contactor', 848, 180);
+        text('Wiring Diagram', 834, 197);
+        text('Control Relay', 932, 180);
+        text('Wiring Diagram', 927, 197);
+        text('Safety Relay', 1022, 180);
+        text('Wiring Diagram', 1015, 197);
         // image(inventory3, 845, 70, inventory4.width / 3.1, inventory4.height / 3.1);
         push();
         imageMode(CENTER);
         image(qteklogo, 80, 50, qteklogo.width / 2, qteklogo.height / 2);
-
         pop();
-        image(inventory1, 300, 65, inventory1.width / 4, inventory1.height / 4);
+        image(inventory1, 300, 63, inventory1.width / 4, inventory1.height / 4);
         image(inventory2, 478, 65 + 4, inventory2.width / 3.6, inventory2.height / 3.6);
         image(wirechart1, 652, 65, inventory3.width / 4.2, inventory3.height / 4.2);
-        textSize(30);
+        textSize(26);
         fill(198, 0, 0);
-        text('Wirecharts', 14, 120);
+        text('Wirecharts & Diagrams', 14, 120);
         textFont(font);
         fill('grey');
         // textSize(20);
         fill('blue');
+        push();
+        tint(255, 110);
+        image(contactor, 835, 75, contactor.width / 1.4, contactor.height / 1.4);
+        image(relay1, 935, 75, relay1.width / 1.5, relay1.height / 1.5);
+        image(safety1, 1020, 75, safety1.width / 1.6, safety1.height / 1.6);
+        pop();
 
         textSize(16);
         btmX = 14;
@@ -653,6 +653,22 @@ function mouseClicked() {
         if (mouseX > 650 && mouseX < 800 && mouseY > 70 && mouseY < 281) {
             window.open('data/QTEKbulkheadCablechart.pdf', '_blank');
         }
+
+        if (mouseX > 1015 && mouseX < 1090 && mouseY > 78 && mouseY < 200) {
+            window.open('pics/safety2.jpg', '_blank');
+        }
+        if (mouseX > 925 && mouseX < 1000 && mouseY > 78 && mouseY < 200) {
+          window.open('pics/relay1.jpg', '_blank');
+        }
+        if (mouseX > 820 && mouseX < 910 && mouseY > 78 && mouseY < 200) {
+            window.open('pics/contactors.jpg', '_blank');
+        }
+
+
+
+        console.log("X " + mouseX);
+        console.log("Y " + mouseY);
+
     }
     if (TBlayout) {
         if (isMouseInsideText(messageTerminal, messageTerminalX, messageTerminalY)) {
