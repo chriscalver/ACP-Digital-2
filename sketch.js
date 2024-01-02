@@ -275,7 +275,7 @@ function draw() {
         // text(message7, message7X, message7Y);       
     }
 
-    if (printpage) {
+    if (printpage) {    /////////////////////////////////////////////////////////////////////////////////////////
 
         push();
         imageMode();
@@ -285,15 +285,17 @@ function draw() {
         pop();
 
         button.mousePressed(() => {
+            removeElements();
             printpage = false;
-            wirecharts = true;
+             wirecharts = true;
+            // menu = false;
 
             //button.hide();
            // buttonPos = 300;
             //button.hide();
            // button.position(0, buttonPos);
             print();
-
+            
         });
     }
 
