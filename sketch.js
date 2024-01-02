@@ -21,30 +21,42 @@ const message6Y = 570;
 const message7 = '';
 const message7X = xpos;
 const message7Y = 610;
+
 const messageBP = 'Backplate Wirechart';
 let BPpic;
 const messageBPX = 14;
 const messageBPY = 183;
+
 const messageDoor = 'Door Wire Chart';
 let Doorpic;
 const messageDoorX = 14;
 const messageDoorY = 153;
+
 const messageBulkhead = 'Cable Wirechart';
 let Bulkhead;
 const messageBulkheadX = 14;
 const messageBulkheadY = 213;
+
 const messageTerminal = "View Terminal Spreadsheet";
 let Terminal;
 const messageTerminalX = 14;
 const messageTerminalY = 153;
+
 const messageBPLayout = "Backplate Lazercutter info";
 let BPLayout;
 const messageBPLayoutX = 14;
 const messageBPLayoutY = 153;
-const messageBOMLayout = "Full BOM and Inventory";
+
+const messageBOMLayout = "View Full BOM & Inventory";
 let BOMLayout;
 const messageBOMLayoutX = 14;
 const messageBOMLayoutY = 153;
+
+const messageMissingItems = "View All Missing Items";
+let MissingItems;
+const messageMissingItemsX = 14;
+const messageMissingItemsY = 183;
+
 const NUM_IMGS = 5,
     imgs = [];
 let myArray = [];
@@ -78,9 +90,12 @@ let inventory4;
 let inventory5;
 
 let contactor;
+let contactorbig;
 let relay1;
 let safety1;
 
+let printpage = false;
+let buttonPos = 10;
 let canvas;
 let indent = 150;
 let test;
@@ -146,6 +161,7 @@ function setup() {
     inventory5 = loadImage('pics/etc.jpg');
     wirechart1 = loadImage('pics/bulkhead5.jpg');
     contactor = loadImage('pics/contactors2.jpg');
+    contactorbig = loadImage('pics/contactors.jpg');
     relay1 = loadImage('pics/relay2.jpg');
     safety1 = loadImage('pics/safety1.jpg');
 
@@ -259,6 +275,28 @@ function draw() {
         // text(message7, message7X, message7Y);       
     }
 
+    if (printpage) {
+
+        push();
+        imageMode();
+        let button = createButton('Print');
+        button.position(100, 20);
+        image(contactorbig, 50, 100, contactorbig.width * 1.5, contactorbig.height * 1.5);
+        pop();
+
+        button.mousePressed(() => {
+            printpage = false;
+            wirecharts = true;
+
+            //button.hide();
+           // buttonPos = 300;
+            //button.hide();
+           // button.position(0, buttonPos);
+            print();
+
+        });
+    }
+
     if (inventory) {/////////////////////////////////////////////////////////////////////////////////////////inventory
         removeElements();
         push();
@@ -271,6 +309,7 @@ function draw() {
         textSize(16);
         textFont(font);
         fill('grey');
+
         if (isMouseInsideText(messageBOMLayout, messageBOMLayoutX, messageBOMLayoutY)) {
             cursor(HAND);
             fill(0, 200, 255);
@@ -281,6 +320,18 @@ function draw() {
             //  stroke(255);
         }
         text(messageBOMLayout, messageBOMLayoutX, messageBOMLayoutY);
+
+        if (isMouseInsideText(messageMissingItems, messageMissingItemsX, messageMissingItemsY)) {
+            cursor(HAND);
+            fill(0, 200, 255);
+            //stroke(0, 200, 255);
+        } else {
+            cursor(ARROW);
+            fill('grey');
+            //  stroke(255);
+        }
+        text(messageMissingItems, messageMissingItemsX, messageMissingItemsY);
+
         let picpos = 65;  //y
         let headpos = picpos + 200;
         let selpos = picpos + 210;
@@ -393,7 +444,7 @@ function draw() {
         fill('blue');
         textSize(16);
         btmX = 14;
-        btmY = 200
+        btmY = 250
         text(btm, btmX, btmY);
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////wirecharts
@@ -410,8 +461,8 @@ function draw() {
         text('Wiring Diagram', 834, 197);
         text('Control Relay', 932, 180);
         text('Wiring Diagram', 927, 197);
-        text('Safety Relay', 1022, 180);
-        text('Wiring Diagram', 1015, 197);
+        text('Safety Relay', 1026, 180);
+        text('Wiring Diagram', 1019, 197);
         // image(inventory3, 845, 70, inventory4.width / 3.1, inventory4.height / 3.1);
         push();
         imageMode(CENTER);
@@ -428,10 +479,10 @@ function draw() {
         // textSize(20);
         fill('blue');
         push();
-        tint(255, 110);
+        tint(255, 200);
         image(contactor, 835, 75, contactor.width / 1.4, contactor.height / 1.4);
         image(relay1, 935, 75, relay1.width / 1.5, relay1.height / 1.5);
-        image(safety1, 1020, 75, safety1.width / 1.6, safety1.height / 1.6);
+        image(safety1, 1024, 75, safety1.width / 1.6, safety1.height / 1.6);
         pop();
 
         textSize(16);
@@ -631,6 +682,11 @@ function mouseClicked() {
         if (isMouseInsideText(messageBOMLayout, messageBOMLayoutX, messageBOMLayoutY)) {
             window.open('data/QtekBOM.pdf', '_blank');
         }
+        if (isMouseInsideText(messageMissingItems, messageMissingItemsX, messageMissingItemsY)) {
+            // window.open('data/QtekBOM.pdf', '_blank');
+        }
+
+
     }
     if (wirecharts) {
         if (isMouseInsideText(messageBP, messageBPX, messageBPY)) {
@@ -640,7 +696,7 @@ function mouseClicked() {
             window.open('data/QTEKdoorWirechart.pdf', '_blank');
         }
         if (isMouseInsideText(messageBulkhead, messageBulkheadX, messageBulkheadY)) {
-            window.open('data/QTEKbulkheadCablechart.pdf', '_blank');
+            window.open('data/QTEKcableSets.pdf', '_blank');
         }
         // console.log("X " + mouseX);
         // console.log("Y " + mouseY);
@@ -651,19 +707,28 @@ function mouseClicked() {
             window.open('data/QTEKbackplateWirechart.pdf', '_blank');
         }
         if (mouseX > 650 && mouseX < 800 && mouseY > 70 && mouseY < 281) {
-            window.open('data/QTEKbulkheadCablechart.pdf', '_blank');
+            window.open('data/QTEKcableSets.pdf', '_blank');
         }
 
         if (mouseX > 1015 && mouseX < 1090 && mouseY > 78 && mouseY < 200) {
             window.open('pics/safety2.jpg', '_blank');
         }
         if (mouseX > 925 && mouseX < 1000 && mouseY > 78 && mouseY < 200) {
-          window.open('pics/relay1.jpg', '_blank');
+            window.open('pics/relay1.jpg', '_blank');
         }
         if (mouseX > 820 && mouseX < 910 && mouseY > 78 && mouseY < 200) {
+
+            // image(contactorbig, 300, 463, contactorbig.width / 2, contactorbig.height / 2);
             window.open('pics/contactors.jpg', '_blank');
         }
-
+        if (mouseX > 820 && mouseX < 910 && mouseY > 210 && mouseY < 250) {
+            wirecharts = false;
+            printpage = true;
+            //  removeElements();
+            //  print();
+            // image(contactorbig, 300, 463, contactorbig.width / 2, contactorbig.height / 2);
+            //  window.open('pics/contactors.jpg', '_blank');
+        }
 
 
         console.log("X " + mouseX);
