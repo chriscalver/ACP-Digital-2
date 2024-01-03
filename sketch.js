@@ -92,13 +92,16 @@ let inventory5;
 let contactor;
 let contactorbig;
 let relay1;
+let relaybig;
 let safety1;
+let safetybig;
 
 let printpage = false;
 let buttonPos = 10;
 let canvas;
 let indent = 150;
 let test;
+let pic;
 
 function preload() {
     qteklogo = loadImage('pics/QTEK.gif');
@@ -164,7 +167,8 @@ function setup() {
     contactorbig = loadImage('pics/contactors.jpg');
     relay1 = loadImage('pics/relay2.jpg');
     safety1 = loadImage('pics/safety1.jpg');
-
+    relaybig = loadImage('pics/relay1.jpg');
+    safetybig = loadImage('pics/safety2.jpg');
 }
 function draw() {
     background('white');
@@ -276,13 +280,26 @@ function draw() {
     }
 
     if (printpage) {    /////////////////////////////////////////////////////////////////////////////////////////
-
+        removeElements();
         push();
         imageMode();
-        let button = createButton('Print');
-        button.position(100, 20);
-        image(contactorbig, 50, 100, contactorbig.width * 1.5, contactorbig.height * 1.5);
+        let button = createButton('Print Contactor Diagram');
+        button.position(250, 20);
+        let buttoncancel = createButton('Cancel');
+        buttoncancel.position(520, 20);
         pop();
+// safety1
+        if (pic == "contactorpic") {
+            image(contactorbig, 50, 100, contactorbig.width * 1.4, contactorbig.height * 1.4);
+        }
+        if (pic == "relaypic") {
+            image(relaybig, 50, 100, relaybig.width * .8, relaybig.height * .8);
+        }
+        if (pic == "safetypic") {
+            image(safetybig, 50, 100, safetybig.width * 1, safetybig.height * 1);
+        }
+       // image(contactorbig, 50, 100, contactorbig.width * 1.5, contactorbig.height * 1.5);
+      
 
         button.mousePressed(() => {
             removeElements();
@@ -295,6 +312,23 @@ function draw() {
             //button.hide();
            // button.position(0, buttonPos);
             print();
+            
+        });
+
+        buttoncancel.mousePressed(() => {
+            pic = "nope";
+            removeElements();
+            //removeElements();
+            //printpage = false;
+            wirecharts = true;
+            
+            // menu = false;
+
+            //button.hide();
+           // buttonPos = 300;
+            //button.hide();
+           // button.position(0, buttonPos);
+            // print();
             
         });
     }
@@ -430,7 +464,7 @@ function draw() {
         spacer = 20;
         while (w < cablesArray.length) {
             let ttt = nfs(cablesArray[w][4]);
-            text(ttt.substring(0, limitter), 860, headpos + 85 + spacer);
+            text(ttt.substring(0, limitter), 868, headpos + 85 + spacer);
             spacer = spacer + 20;
             w++;
         }
@@ -458,13 +492,18 @@ function draw() {
         text('Door Wirechart', 322, 270);
         text('Backplate Wirechart', 483, 270);
         text('Cable Wirechart', 678, 270);
-        textSize(13);
+        textSize(14);
         text('Contactor', 848, 180);
         text('Wiring Diagram', 834, 197);
         text('Control Relay', 932, 180);
         text('Wiring Diagram', 927, 197);
         text('Safety Relay', 1026, 180);
         text('Wiring Diagram', 1019, 197);
+
+        fill('#C60000');
+        text('Print', 856, 224);
+        text('Print', 949, 224);
+        text('Print', 1040, 224);
         // image(inventory3, 845, 70, inventory4.width / 3.1, inventory4.height / 3.1);
         push();
         imageMode(CENTER);
@@ -639,7 +678,9 @@ function mouseClicked() {
         //previous.position(-940, 100);
         //next.position(-1020, 100);
         //setupButtons();
+        removeElements();
         wirecharts = false;
+        printpage = false;
         pictures = false;
         TBlayout = false;
         cableLayout = false;
@@ -648,6 +689,7 @@ function mouseClicked() {
         menu = true;
     }
     if (menu) {
+        removeElements();
         if (isMouseInsideText(message, messageX, messageY)) {
             //  menu = false;
             //window.open('http://www.chriscalver.com/', '_blank');
@@ -682,13 +724,13 @@ function mouseClicked() {
     // }
     if (inventory) {
         if (isMouseInsideText(messageBOMLayout, messageBOMLayoutX, messageBOMLayoutY)) {
-            window.open('data/QtekBOM.pdf', '_blank');
+             window.open('data/QtekBOM.xlsx', '_blank');
         }
         if (isMouseInsideText(messageMissingItems, messageMissingItemsX, messageMissingItemsY)) {
             // window.open('data/QtekBOM.pdf', '_blank');
         }
 
-
+        
     }
     if (wirecharts) {
         if (isMouseInsideText(messageBP, messageBPX, messageBPY)) {
@@ -723,16 +765,36 @@ function mouseClicked() {
             // image(contactorbig, 300, 463, contactorbig.width / 2, contactorbig.height / 2);
             window.open('pics/contactors.jpg', '_blank');
         }
-        if (mouseX > 820 && mouseX < 910 && mouseY > 210 && mouseY < 250) {
+        if (mouseX > 840 && mouseX < 900 && mouseY > 210 && mouseY < 235) {
             wirecharts = false;
             printpage = true;
+            pic = 'contactorpic';
+              removeElements();
+            //  print();
+            // image(contactorbig, 300, 463, contactorbig.width / 2, contactorbig.height / 2);
+            //  window.open('pics/contactors.jpg', '_blank');
+        }
+
+        if (mouseX > 930 && mouseX < 980 && mouseY > 210 && mouseY < 235) {
+            wirecharts = false;
+            printpage = true;
+            pic = 'relaypic';
             //  removeElements();
             //  print();
             // image(contactorbig, 300, 463, contactorbig.width / 2, contactorbig.height / 2);
             //  window.open('pics/contactors.jpg', '_blank');
         }
 
-
+        if (mouseX > 1025 && mouseX < 1080 && mouseY > 210 && mouseY < 235) {
+            wirecharts = false;
+            printpage = true;
+            pic = 'safetypic';
+            //  removeElements();
+            //  print();
+            // image(contactorbig, 300, 463, contactorbig.width / 2, contactorbig.height / 2);
+            //  window.open('pics/contactors.jpg', '_blank');
+        }
+console.log(pic);
         console.log("X " + mouseX);
         console.log("Y " + mouseY);
 
