@@ -173,6 +173,8 @@ function setup() {
 function draw() {
     background('white');
     // console.log(mynewArray[1]);
+
+
     if (menu) {
         removeElements();
         strokeWeight(0.3);
@@ -189,7 +191,7 @@ function draw() {
         textSize(16);
         fill('black');
         text('SUPERBOMBER #23456-01', xpos, 232);
-        text('Due date: 01-12-24', xpos, 255);
+        text('Due date: 01-12-12', xpos, 255);
         fill(198, 0, 0);
         textSize(14);
         let txt = text('Progress: ' + sVal + '%', xlocation, location - 5);
@@ -283,7 +285,7 @@ function draw() {
         removeElements();
         push();
         imageMode();
-        let button = createButton('Print Contactor Diagram');
+        let button = createButton('Print Diagram');
         button.position(250, 20);
         let buttoncancel = createButton('Cancel');
         buttoncancel.position(520, 20);
@@ -296,7 +298,7 @@ function draw() {
             image(relaybig, 50, 100, relaybig.width * .8, relaybig.height * .8);
         }
         if (pic == "safetypic") {
-            image(safetybig, 50, 100, safetybig.width * 1, safetybig.height * 1);
+            image(safetybig, 50, 100, safetybig.width * 1.3, safetybig.height * 1.3);
         }
        // image(contactorbig, 50, 100, contactorbig.width * 1.5, contactorbig.height * 1.5);
       
@@ -724,7 +726,7 @@ function mouseClicked() {
     // }
     if (inventory) {
         if (isMouseInsideText(messageBOMLayout, messageBOMLayoutX, messageBOMLayoutY)) {
-             window.open('data/QtekBOM.xlsx', '_blank');
+             window.open('data/QtekBOM.pdf', '_blank');
         }
         if (isMouseInsideText(messageMissingItems, messageMissingItemsX, messageMissingItemsY)) {
             // window.open('data/QtekBOM.pdf', '_blank');
@@ -827,7 +829,7 @@ class Count {
         }
     }
     counter() {
-        if (this.s < 38) {
+        if (this.s < 72) {
             this.s = this.s + 4
             //this.p.html(this.s)
         }
