@@ -102,6 +102,9 @@ let canvas;
 let indent = 150;
 let test;
 let pic;
+let cablelayout;
+let hole2;
+let hole3;
 
 function preload() {
     qteklogo = loadImage('pics/QTEK.gif');
@@ -169,6 +172,9 @@ function setup() {
     safety1 = loadImage('pics/safety1.jpg');
     relaybig = loadImage('pics/relay1.jpg');
     safetybig = loadImage('pics/safety2.jpg');
+    cablelayout = loadImage('pics/cablelayout.jpg');
+    hole2 = loadImage('pics/hole2.jpg');
+    hole3 = loadImage('pics/hole3.jpg');
 }
 function draw() {
     background('white');
@@ -188,10 +194,10 @@ function draw() {
         textSize(50);
         fill(198, 0, 0);
         text('ACP Digital Solutions', xpos, 130);
-        textSize(16);
+        textSize(22);
         fill('black');
         text('SUPERBOMBER #23456-01', xpos, 232);
-        text('Due date: 01-12-12', xpos, 255);
+        text('Due date: 01-12-24', xpos, 255);
         fill(198, 0, 0);
         textSize(14);
         let txt = text('Progress: ' + sVal + '%', xlocation, location - 5);
@@ -210,7 +216,7 @@ function draw() {
         // image(imgs[currentImg], 0, 0);
         textFont(font);
         fill('grey');
-        line(460, 235, 620, 235);
+        line(460, 235, 680, 235);
         // textAlign(CENTER);
         textSize(26);
         if (isMouseInsideText(message, messageX, messageY)) {
@@ -290,7 +296,9 @@ function draw() {
         let buttoncancel = createButton('Cancel');
         buttoncancel.position(520, 20);
         pop();
-// safety1
+        // safety1
+        push();
+
         if (pic == "contactorpic") {
             image(contactorbig, 50, 100, contactorbig.width * 1.4, contactorbig.height * 1.4);
         }
@@ -300,21 +308,28 @@ function draw() {
         if (pic == "safetypic") {
             image(safetybig, 50, 100, safetybig.width * 1.3, safetybig.height * 1.3);
         }
-       // image(contactorbig, 50, 100, contactorbig.width * 1.5, contactorbig.height * 1.5);
-      
+        if (pic == "hole2") {
+            image(hole2, 50, 100, hole2.width * 1.3, hole2.height * 1.3);
+        }
+        if (pic == "hole3") {
+            image(hole3, 50, 100, hole3.width, hole3.height);
+        }
+
+        // image(contactorbig, 50, 100, contactorbig.width * 1.5, contactorbig.height * 1.5);
+        pop();
 
         button.mousePressed(() => {
             removeElements();
             printpage = false;
-             wirecharts = true;
+            wirecharts = true;
             // menu = false;
 
             //button.hide();
-           // buttonPos = 300;
+            // buttonPos = 300;
             //button.hide();
-           // button.position(0, buttonPos);
+            // button.position(0, buttonPos);
             print();
-            
+
         });
 
         buttoncancel.mousePressed(() => {
@@ -323,15 +338,15 @@ function draw() {
             //removeElements();
             //printpage = false;
             wirecharts = true;
-            
+
             // menu = false;
 
             //button.hide();
-           // buttonPos = 300;
+            // buttonPos = 300;
             //button.hide();
-           // button.position(0, buttonPos);
+            // button.position(0, buttonPos);
             // print();
-            
+
         });
     }
 
@@ -479,6 +494,11 @@ function draw() {
             p++;
         }
 
+
+
+
+
+
         fill('blue');
         textSize(16);
         btmX = 14;
@@ -514,6 +534,48 @@ function draw() {
         image(inventory1, 300, 63, inventory1.width / 4, inventory1.height / 4);
         image(inventory2, 478, 65 + 4, inventory2.width / 3.6, inventory2.height / 3.6);
         image(wirechart1, 652, 65, inventory3.width / 4.2, inventory3.height / 4.2);
+        
+        image(cablelayout, 290, 300, cablelayout.width, cablelayout.height);
+        fill('grey');
+        text('OP Station Enet', 298, 410);
+        text('Valve Bank', 417, 410);
+        text('006-08PS', 530, 410);
+        text('006-01PRX', 642, 410);
+        text('006-03LS', 754, 410);
+        text('002-06M', 863, 410);
+
+        text('006-02PCR', 642, 430);
+        text('006-09PS', 530, 430);
+        text('006-05LS', 754, 430);
+
+        text('010-00SV', 530, 450);
+        text('006-00PCE', 642, 450);
+        text('007-00PRX', 754, 450);
+
+        text('010-08SV', 530, 470);
+        text('006-00PCR', 642, 470);
+        text('007-01PRX', 754, 470);
+
+
+
+        text('OP STN 4Pin', 642, 578);
+        text('004-06SV', 754, 578);
+        text('Power Cable', 863, 578);
+
+        text('OP STN 12Pin', 642, 598);
+        text('004-06LS', 754, 598);
+
+        text('003-07CAM', 642, 618);
+        text('004-09SV', 754, 618);
+
+        text('007-PENDENT', 642, 638);
+        text('004-09LS', 754, 638);
+
+
+
+
+
+
         textSize(26);
         fill(198, 0, 0);
         text('Wirecharts & Diagrams', 14, 120);
@@ -726,13 +788,13 @@ function mouseClicked() {
     // }
     if (inventory) {
         if (isMouseInsideText(messageBOMLayout, messageBOMLayoutX, messageBOMLayoutY)) {
-             window.open('data/QtekBOM.pdf', '_blank');
+            window.open('data/QtekBOM.pdf', '_blank');
         }
         if (isMouseInsideText(messageMissingItems, messageMissingItemsX, messageMissingItemsY)) {
             // window.open('data/QtekBOM.pdf', '_blank');
         }
 
-        
+
     }
     if (wirecharts) {
         if (isMouseInsideText(messageBP, messageBPX, messageBPY)) {
@@ -771,7 +833,7 @@ function mouseClicked() {
             wirecharts = false;
             printpage = true;
             pic = 'contactorpic';
-              removeElements();
+            removeElements();
             //  print();
             // image(contactorbig, 300, 463, contactorbig.width / 2, contactorbig.height / 2);
             //  window.open('pics/contactors.jpg', '_blank');
@@ -796,7 +858,28 @@ function mouseClicked() {
             // image(contactorbig, 300, 463, contactorbig.width / 2, contactorbig.height / 2);
             //  window.open('pics/contactors.jpg', '_blank');
         }
-console.log(pic);
+
+
+        if (mouseX > 410 && mouseX < 479 && mouseY > 320 && mouseY < 380) {
+            wirecharts = false;
+            printpage = true;
+            pic = 'hole2';
+            //  removeElements();
+            //  print();
+            // image(contactorbig, 300, 463, contactorbig.width / 2, contactorbig.height / 2);
+            //  window.open('pics/contactors.jpg', '_blank');
+        }
+
+        if (mouseX > 517 && mouseX < 588 && mouseY > 320 && mouseY < 400) {
+            wirecharts = false;
+            printpage = true;
+            pic = 'hole3';
+            //  removeElements();
+            //  print();
+            // image(contactorbig, 300, 463, contactorbig.width / 2, contactorbig.height / 2);
+            //  window.open('pics/contactors.jpg', '_blank');
+        }
+        console.log(pic);
         console.log("X " + mouseX);
         console.log("Y " + mouseY);
 
@@ -829,7 +912,7 @@ class Count {
         }
     }
     counter() {
-        if (this.s < 72) {
+        if (this.s < 76) {
             this.s = this.s + 4
             //this.p.html(this.s)
         }
